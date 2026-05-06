@@ -1,3 +1,5 @@
+import { useRef } from "react"
+import { motion, useInView } from "framer-motion"
 import { cn } from "@/lib/utils"
 import { Badge } from "@/components/ui/badge"
 import {
@@ -54,16 +56,38 @@ const tiles: BentoTile[] = [
   },
 ]
 
-function BentoCard({ tile }: { tile: BentoTile }) {
+const cardVariants = {
+  hidden: { opacity: 0, y: 20 },
+  visible: (i: number) => ({
+    opacity: 1,
+    y: 0,
+    transition: {
+      type: "spring" as const,
+      stiffness: 100,
+      damping: 20,
+      delay: i * 0.1,
+    },
+  }),
+}
+
+function BentoCard({ tile, index }: { tile: BentoTile; index: number }) {
+  const ref = useRef<HTMLDivElement>(null)
+  const inView = useInView(ref, { once: true, margin: "-60px" })
+
   return (
-    <div
+    <motion.div
+      ref={ref}
+      custom={index}
+      variants={cardVariants}
+      initial="hidden"
+      animate={inView ? "visible" : "hidden"}
       className={cn(
         "glass-card rounded-2xl border border-white/10 p-7 flex flex-col gap-5",
-        "transition-all duration-300 hover:border-white/20 hover:bg-white/[0.07] group",
+        "transition-colors duration-300 hover:border-white/20 hover:bg-white/[0.07] group",
         tile.span
       )}
     >
-      {/* Icon with cyan glow */}
+      {/* Icon */}
       <div className="w-14 h-14 rounded-xl bg-accent/10 border border-accent/20 flex items-center justify-center text-accent transition-all duration-300 group-hover:bg-accent/15 group-hover:glow-cyan">
         {tile.icon}
       </div>
@@ -82,16 +106,16 @@ function BentoCard({ tile }: { tile: BentoTile }) {
       </h3>
 
       {/* Body */}
-      <p className="text-sm text-muted-foreground leading-relaxed mt-auto">
+      <p className="text-sm text-muted-foreground leading-[1.6] mt-auto">
         {tile.body}
       </p>
-    </div>
+    </motion.div>
   )
 }
 
 export function IndustryGrid() {
   return (
-    <section className="relative py-24 lg:py-32 overflow-hidden">
+    <section className="relative py-28 lg:py-36 overflow-hidden">
       {/* Ambient glow */}
       <div
         className="absolute inset-0 pointer-events-none"
@@ -111,19 +135,19 @@ export function IndustryGrid() {
           >
             Built for Your Industry
           </Badge>
-          <h2 className="text-4xl lg:text-5xl font-bold tracking-tight mb-4">
+          <h2 className="text-4xl lg:text-5xl font-bold tracking-tighter mb-4">
             Purpose-built for{" "}
             <span className="gradient-text">UK small businesses</span>
           </h2>
-          <p className="text-lg text-muted-foreground max-w-lg mx-auto">
+          <p className="text-lg text-muted-foreground max-w-lg mx-auto leading-[1.6]">
             Built for your sector. Not just phone calls.
           </p>
         </div>
 
-        {/* Bento grid — 12 cols desktop, 2 cols tablet, 1 col mobile */}
+        {/* Bento grid */}
         <div className="grid grid-cols-1 md:grid-cols-12 gap-4">
-          {tiles.map((tile) => (
-            <BentoCard key={tile.industry} tile={tile} />
+          {tiles.map((tile, i) => (
+            <BentoCard key={tile.industry} tile={tile} index={i} />
           ))}
         </div>
       </div>

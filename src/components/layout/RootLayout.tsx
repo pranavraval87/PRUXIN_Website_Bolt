@@ -1,4 +1,5 @@
 import { Navbar } from "./Navbar"
+import { Footer } from "./Footer"
 
 interface RootLayoutProps {
   children: React.ReactNode
@@ -10,6 +11,7 @@ export function RootLayout({ children, mainRef }: RootLayoutProps) {
     <div className="min-h-screen bg-background text-foreground">
       <Navbar />
       <main ref={mainRef} className="pt-16">{children}</main>
+      <Footer />
     </div>
   )
 }

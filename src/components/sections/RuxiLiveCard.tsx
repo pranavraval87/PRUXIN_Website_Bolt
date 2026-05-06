@@ -206,7 +206,7 @@ export function RuxiLiveCard({ industrySlug, compact = false, onCallStateChange 
                 <MagneticButton>
                   <Button
                     size="lg"
-                    className="bg-primary text-primary-foreground hover:bg-primary/90 glow-blue font-semibold gap-2.5 px-8"
+                    className="bg-primary text-primary-foreground hover:bg-primary/90 glow-blue font-semibold gap-2.5 px-8 rounded-full"
                     onClick={() => {
                       track({ name: "cta_click", label: "Talk to Ruxi", location: "RuxiLiveCard" })
                       handleStart()
@@ -229,12 +229,57 @@ export function RuxiLiveCard({ industrySlug, compact = false, onCallStateChange 
                 initial={{ opacity: 0, y: 8 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -8 }}
-                transition={{ duration: 0.25 }}
-                className="flex flex-col items-center gap-3"
+                transition={{ type: "spring", stiffness: 100, damping: 20 }}
+                className="flex flex-col items-center gap-5 py-2"
               >
-                <div className="w-10 h-10 rounded-full border-2 border-accent border-t-transparent animate-spin" />
-                <p className="text-sm font-semibold text-foreground">Connecting to Ruxi…</p>
-                <p className="text-xs text-muted-foreground">Allow microphone access when prompted</p>
+                {/* Animated ring */}
+                <div className="relative w-14 h-14 flex items-center justify-center">
+                  <motion.div
+                    className="absolute inset-0 rounded-full border-2 border-accent/20"
+                    animate={{ scale: [1, 1.4, 1], opacity: [0.5, 0, 0.5] }}
+                    transition={{ duration: 1.8, repeat: Infinity, ease: "easeInOut" }}
+                  />
+                  <motion.div
+                    className="absolute inset-0 rounded-full border-2 border-accent/15"
+                    animate={{ scale: [1, 1.7, 1], opacity: [0.3, 0, 0.3] }}
+                    transition={{ duration: 1.8, repeat: Infinity, ease: "easeInOut", delay: 0.35 }}
+                  />
+                  <div className="w-10 h-10 rounded-full border-2 border-accent border-t-transparent animate-spin" />
+                </div>
+
+                {/* Status label */}
+                <div className="flex flex-col items-center gap-1.5">
+                  <p className="text-sm font-semibold text-foreground">Connecting to Ruxi…</p>
+                  <p className="text-xs text-muted-foreground">Allow microphone access when prompted</p>
+                </div>
+
+                {/* Step indicators */}
+                <div className="flex flex-col gap-2 w-full max-w-[220px]">
+                  {[
+                    { label: "Initialising AI model", done: true },
+                    { label: "Requesting microphone", done: false },
+                    { label: "Opening voice channel", done: false },
+                  ].map((step, i) => (
+                    <motion.div
+                      key={step.label}
+                      initial={{ opacity: 0, x: -8 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ type: "spring", stiffness: 100, damping: 20, delay: i * 0.15 }}
+                      className="flex items-center gap-2.5"
+                    >
+                      <div className={cn(
+                        "w-1.5 h-1.5 rounded-full flex-shrink-0",
+                        step.done ? "bg-accent" : "bg-white/20 animate-pulse"
+                      )} />
+                      <span className={cn(
+                        "text-xs",
+                        step.done ? "text-accent font-medium" : "text-muted-foreground"
+                      )}>
+                        {step.label}
+                      </span>
+                    </motion.div>
+                  ))}
+                </div>
               </motion.div>
             )}
 
@@ -317,7 +362,7 @@ export function RuxiLiveCard({ industrySlug, compact = false, onCallStateChange 
                 <div className="flex flex-col sm:flex-row gap-3 w-full">
                   <MagneticButton className="flex-1">
                     <Button
-                      className="w-full bg-primary text-primary-foreground hover:bg-primary/90 glow-blue font-semibold gap-2"
+                      className="w-full bg-primary text-primary-foreground hover:bg-primary/90 glow-blue font-semibold gap-2 rounded-full"
                       onClick={() => track({ name: "cta_click", label: "Book a Demo post-call", location: "RuxiLiveCard" })}
                     >
                       <Zap className="w-4 h-4 fill-current" />

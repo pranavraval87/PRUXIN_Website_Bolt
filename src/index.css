@@ -157,6 +157,14 @@
   body {
     @apply bg-background text-foreground;
     position: relative;
+    line-height: 1.6;
+  }
+  h1, h2, h3 {
+    letter-spacing: -0.03em;
+    line-height: 1.08;
+  }
+  h4, h5, h6 {
+    letter-spacing: -0.02em;
   }
   body::before {
     content: "";
@@ -188,16 +196,20 @@
     border-bottom: 1px solid oklch(1 0 0 / 8%);
   }
 
-  /* Cyan glow shadow */
+  /* Cyan glow — atmospheric light-source behind element, not a harsh edge */
   .glow-cyan {
-    box-shadow: 0 0 24px 0 oklch(0.88 0.12 196 / 35%),
-                0 0 48px 0 oklch(0.88 0.12 196 / 15%);
+    box-shadow:
+      0 0 16px 2px oklch(0.88 0.12 196 / 22%),
+      0 0 48px 8px oklch(0.88 0.12 196 / 10%),
+      0 0 96px 16px oklch(0.88 0.12 196 / 5%);
   }
 
-  /* Blue glow for primary actions */
+  /* Blue glow — primary action atmospheric depth */
   .glow-blue {
-    box-shadow: 0 0 20px 0 oklch(0.50 0.22 264 / 40%),
-                0 0 40px 0 oklch(0.50 0.22 264 / 20%);
+    box-shadow:
+      0 0 16px 2px oklch(0.50 0.22 264 / 30%),
+      0 0 40px 8px oklch(0.50 0.22 264 / 14%),
+      0 0 80px 16px oklch(0.50 0.22 264 / 6%);
   }
 
   /* Gradient text: brand blue → glow cyan */

@@ -14,6 +14,7 @@ import { TrustSection } from "@/components/sections/TrustSection"
 import { PricingSection } from "@/components/sections/PricingSection"
 import { FinalCTA } from "@/components/sections/FinalCTA"
 import { IndustryPage } from "@/pages/IndustryPage"
+import { LegalPage } from "@/pages/LegalPage"
 import { NotFoundPage } from "@/pages/NotFoundPage"
 import { ErrorBoundary } from "@/components/errors/ErrorBoundary"
 import { OfflineBanner } from "@/components/errors/OfflineBanner"
@@ -72,6 +73,16 @@ export function App() {
           <Route path="/industries/:slug" element={
             <ErrorBoundary section="IndustryPage">
               <IndustryPage />
+            </ErrorBoundary>
+          } />
+          <Route path="/legal" element={
+            <ErrorBoundary section="LegalPage">
+              <LegalPage />
+            </ErrorBoundary>
+          } />
+          <Route path="/legal/:section" element={
+            <ErrorBoundary section="LegalPage">
+              <LegalPage />
             </ErrorBoundary>
           } />
           <Route path="*" element={

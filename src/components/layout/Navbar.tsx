@@ -3,18 +3,21 @@ import { cn } from "@/lib/utils"
 import { Menu, X } from "lucide-react"
 import { useState } from "react"
 import { useTheme } from "@/components/theme-provider"
+import { useLocation } from "react-router-dom"
 
 const navLinks = [
   { label: "Product", href: "#product" },
   { label: "Pricing", href: "#pricing" },
-  { label: "Docs", href: "#docs" },
-  { label: "About", href: "#about" },
+  { label: "Docs",    href: "#docs"    },
+  { label: "About",   href: "#about"   },
 ]
 
 export function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false)
   const { theme } = useTheme()
   const isLight = theme === "light"
+  const { pathname, hash } = useLocation()
+  const isHome = pathname === "/"
 
   return (
     <header className={cn("fixed top-0 left-0 right-0 z-50 glass-nav")}>
@@ -30,15 +33,23 @@ export function Navbar() {
 
         {/* Desktop nav links */}
         <nav className="hidden md:flex items-center gap-1">
-          {navLinks.map((link) => (
-            <a
-              key={link.label}
-              href={link.href}
-              className="px-4 py-2 text-sm text-muted-foreground hover:text-foreground transition-colors duration-200 rounded-md hover:bg-white/5"
-            >
-              {link.label}
-            </a>
-          ))}
+          {navLinks.map((link) => {
+            const isActive = isHome && hash === link.href
+            return (
+              <a
+                key={link.label}
+                href={link.href}
+                className={cn(
+                  "relative px-4 py-2 text-sm transition-colors duration-200 rounded-md",
+                  isActive
+                    ? "text-foreground bg-white/8 after:absolute after:bottom-0 after:left-3 after:right-3 after:h-0.5 after:rounded-full after:bg-accent"
+                    : "text-muted-foreground hover:text-foreground hover:bg-white/5"
+                )}
+              >
+                {link.label}
+              </a>
+            )
+          })}
         </nav>
 
         {/* Desktop CTA */}
@@ -51,7 +62,7 @@ export function Navbar() {
           </a>
           <Button
             size="sm"
-            className="bg-primary text-primary-foreground hover:bg-primary/90 glow-blue transition-all duration-300 font-medium"
+            className="bg-primary text-primary-foreground hover:bg-primary/90 glow-blue transition-all duration-300 font-medium rounded-full"
           >
             Build my Ruxi now
           </Button>
@@ -88,7 +99,7 @@ export function Navbar() {
               >
                 Check my calls
               </a>
-              <Button className="bg-primary text-primary-foreground w-full font-medium">
+              <Button className="bg-primary text-primary-foreground w-full font-medium rounded-full">
                 Build my Ruxi now
               </Button>
             </div>

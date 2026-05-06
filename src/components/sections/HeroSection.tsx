@@ -84,7 +84,7 @@ export function HeroSection() {
               <MagneticButton>
                 <Button
                   size="lg"
-                  className="bg-primary text-primary-foreground hover:bg-primary/90 glow-blue transition-all duration-300 font-semibold px-8 h-12 text-base group"
+                  className="bg-primary text-primary-foreground hover:bg-primary/90 glow-blue transition-all duration-300 font-semibold px-8 h-12 text-base group rounded-full"
                   onClick={() => track({ name: "cta_click", label: "Build my Ruxi now", location: "HeroSection" })}
                 >
                   Build my Ruxi now

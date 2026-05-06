@@ -2,22 +2,19 @@ import { useRef } from "react"
 import { motion, useInView } from "framer-motion"
 import { Button } from "@/components/ui/button"
 import { ArrowRight, Zap } from "lucide-react"
-import { useTheme } from "@/components/theme-provider"
 import { track } from "@/lib/analytics"
 import { MagneticButton } from "@/components/motion/MagneticButton"
 
 export function FinalCTA() {
   const ref = useRef<HTMLDivElement>(null)
   const inView = useInView(ref, { once: true, margin: "-80px" })
-  const { theme } = useTheme()
-  const isLight = theme === "light"
 
   return (
     <section className="relative py-24 lg:py-32 overflow-hidden">
       {/* Top separator */}
       <div className="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-white/15 to-transparent" />
 
-      {/* Strong ambient glow — makes this section feel like a spotlight */}
+      {/* Strong ambient glow */}
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
@@ -58,7 +55,7 @@ export function FinalCTA() {
           <MagneticButton>
             <Button
               size="lg"
-              className="bg-primary text-primary-foreground hover:bg-primary/90 glow-blue font-semibold text-base px-10 h-14 gap-2.5"
+              className="bg-primary text-primary-foreground hover:bg-primary/90 glow-blue font-semibold text-base px-10 h-14 gap-2.5 rounded-full"
               onClick={() => track({ name: "cta_click", label: "Build my Ruxi now", location: "FinalCTA" })}
             >
               <Zap className="w-5 h-5 fill-current" />
@@ -71,28 +68,6 @@ export function FinalCTA() {
           <p className="text-sm text-muted-foreground">
             No credit card · No contract · Live in 10 minutes
           </p>
-        </motion.div>
-
-        {/* Bottom logo + copyright */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={inView ? { opacity: 1 } : {}}
-          transition={{ duration: 0.6, delay: 0.4 }}
-          className="mt-20 pt-8 border-t border-white/8 flex flex-col sm:flex-row items-center justify-between gap-4"
-        >
-          <img
-            src={isLight ? "/Pruxin_logo_DARK copy.svg" : "/Pruxin_logo_LIGHT copy.svg"}
-            alt="PRUXIN"
-            className="h-6 w-auto opacity-60 hover:opacity-100 transition-opacity duration-300"
-          />
-          <p className="text-xs text-muted-foreground">
-            © 2026 PRUXIN. All rights reserved. Registered in England &amp; Wales.
-          </p>
-          <div className="flex gap-5 text-xs text-muted-foreground">
-            <a href="#privacy" className="hover:text-foreground transition-colors">Privacy</a>
-            <a href="#terms" className="hover:text-foreground transition-colors">Terms</a>
-            <a href="#gdpr" className="hover:text-foreground transition-colors">GDPR</a>
-          </div>
         </motion.div>
       </div>
     </section>
