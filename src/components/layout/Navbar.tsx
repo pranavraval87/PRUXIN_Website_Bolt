@@ -1,7 +1,8 @@
 import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
-import { Zap, Menu, X } from "lucide-react"
+import { Menu, X } from "lucide-react"
 import { useState } from "react"
+import { useTheme } from "@/components/theme-provider"
 
 const navLinks = [
   { label: "Product", href: "#product" },
@@ -12,18 +13,19 @@ const navLinks = [
 
 export function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false)
+  const { theme } = useTheme()
+  const isLight = theme === "light"
 
   return (
     <header className={cn("fixed top-0 left-0 right-0 z-50 glass-nav")}>
       <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
         {/* Logo */}
-        <a href="/" className="flex items-center gap-2.5 group">
-          <div className="w-8 h-8 rounded-lg bg-primary flex items-center justify-center glow-blue transition-all duration-300 group-hover:scale-105">
-            <Zap className="w-4 h-4 text-primary-foreground fill-current" />
-          </div>
-          <span className="text-foreground font-bold text-lg tracking-tight">
-            PRUX<span className="gradient-text">IN</span>
-          </span>
+        <a href="/" className="flex items-center group">
+          <img
+            src={isLight ? "/Pruxin_logo_DARK copy.svg" : "/Pruxin_logo_LIGHT copy.svg"}
+            alt="PRUXIN"
+            className="h-7 w-auto transition-opacity duration-200 group-hover:opacity-80"
+          />
         </a>
 
         {/* Desktop nav links */}
