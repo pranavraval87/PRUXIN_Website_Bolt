@@ -5,6 +5,7 @@ import { Slider } from "@/components/ui/slider"
 import { Badge } from "@/components/ui/badge"
 import { Play, Pause, Quote } from "lucide-react"
 import { cn } from "@/lib/utils"
+import { FadeUp } from "@/components/motion/FadeUp"
 
 interface Testimonial {
   id: string
@@ -104,7 +105,7 @@ function AudioCard({ testimonial }: { testimonial: Testimonial }) {
   }
 
   return (
-    <div className="glass-card rounded-2xl border border-white/10 p-6 flex flex-col gap-5 min-w-[300px] max-w-[360px] flex-shrink-0 transition-all duration-300 hover:border-white/20 hover:bg-white/[0.07] group">
+    <div className="glass-card glass-card-hover rounded-2xl border border-white/10 p-6 flex flex-col gap-5 min-w-[300px] max-w-[360px] flex-shrink-0 transition-all duration-300 hover:border-white/20 hover:bg-white/[0.07] group">
       {/* Quote icon */}
       <Quote className="w-5 h-5 text-accent/60" />
 
@@ -194,7 +195,7 @@ export function AudioSection() {
 
       <div className="max-w-7xl mx-auto px-6 relative z-10">
         {/* Section header */}
-        <div className="text-center mb-16">
+        <FadeUp className="text-center mb-16">
           <Badge
             variant="outline"
             className="border-accent/30 text-accent bg-accent/5 mb-6 px-4 py-1.5 text-xs font-semibold tracking-wider uppercase"
@@ -208,7 +209,7 @@ export function AudioSection() {
           <p className="text-lg text-muted-foreground max-w-xl mx-auto leading-relaxed">
             Real engineers and leaders sharing how PRUXIN changed how their teams operate.
           </p>
-        </div>
+        </FadeUp>
 
         {/* Scrollable card row */}
         <div className="flex gap-5 overflow-x-auto pb-4 scrollbar-hide snap-x snap-mandatory -mx-6 px-6">
@@ -220,7 +221,7 @@ export function AudioSection() {
         </div>
 
         {/* Bottom CTA */}
-        <div className="text-center mt-14">
+        <FadeUp delay={0.2} className="text-center mt-14">
           <p className="text-muted-foreground text-sm mb-4">
             Join thousands of teams who've already made the switch
           </p>
@@ -230,7 +231,7 @@ export function AudioSection() {
           >
             Read All Case Studies
           </Button>
-        </div>
+        </FadeUp>
       </div>
     </section>
   )

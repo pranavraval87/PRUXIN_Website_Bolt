@@ -62,7 +62,7 @@ function StepCard({ step, index }: { step: (typeof steps)[0]; index: number }) {
       animate={inView ? { opacity: 1, x: 0 } : {}}
       transition={{ duration: 0.6, ease: "easeOut", delay: 0.1 }}
       className={cn(
-        "relative glass-card rounded-2xl border p-7 flex gap-5 transition-all duration-500",
+        "relative glass-card glass-card-hover rounded-2xl border p-7 flex gap-5 transition-all duration-500",
         inView ? `border-white/20 bg-white/[0.06]` : "border-white/8 bg-white/[0.03]"
       )}
     >

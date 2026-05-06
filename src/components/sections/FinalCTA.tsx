@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button"
 import { ArrowRight, Zap, CalendarDays } from "lucide-react"
 import { useTheme } from "@/components/theme-provider"
 import { track } from "@/lib/analytics"
+import { MagneticButton } from "@/components/motion/MagneticButton"
 
 export function FinalCTA() {
   const ref = useRef<HTMLDivElement>(null)
@@ -56,15 +57,17 @@ export function FinalCTA() {
 
           {/* CTA buttons */}
           <div className="flex flex-col sm:flex-row gap-4 items-center justify-center w-full">
-            <Button
-              size="lg"
-              className="bg-primary text-primary-foreground hover:bg-primary/90 glow-blue font-semibold text-base px-8 h-14 gap-2.5 min-w-48"
-              onClick={() => track({ name: "cta_click", label: "Book a Demo", location: "FinalCTA" })}
-            >
-              <CalendarDays className="w-5 h-5" />
-              Book a Demo
-              <ArrowRight className="w-4 h-4" />
-            </Button>
+            <MagneticButton>
+              <Button
+                size="lg"
+                className="bg-primary text-primary-foreground hover:bg-primary/90 glow-blue font-semibold text-base px-8 h-14 gap-2.5 min-w-48"
+                onClick={() => track({ name: "cta_click", label: "Book a Demo", location: "FinalCTA" })}
+              >
+                <CalendarDays className="w-5 h-5" />
+                Book a Demo
+                <ArrowRight className="w-4 h-4" />
+              </Button>
+            </MagneticButton>
             <Button
               size="lg"
               variant="outline"
