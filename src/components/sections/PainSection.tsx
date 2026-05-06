@@ -38,10 +38,9 @@ export function PainSection() {
             <br />
             Don't let them go to your competitor.
           </h2>
-          <p className="text-xl text-muted-foreground leading-relaxed max-w-2xl mx-auto mb-16">
-            In the time it takes to finish a job, serve a table, or close a meeting,
-            three enquiries could ring and ring out — heading straight to whoever picks up next.
-            That's not a technology problem. That's lost revenue.
+          <p className="text-xl text-muted-foreground max-w-xl mx-auto mb-16">
+            While you're busy, three enquiries ring out — straight to your competitor.
+            That's lost revenue, not a technology problem.
           </p>
         </FadeUp>
 

@@ -1,7 +1,7 @@
 import { useState } from "react"
 import { motion, type Variants } from "framer-motion"
 import { Button } from "@/components/ui/button"
-import { ArrowRight, Play, Users, Star, TrendingUp } from "lucide-react"
+import { ArrowRight, Users, Star, TrendingUp } from "lucide-react"
 import { track } from "@/lib/analytics"
 import { MagneticButton } from "@/components/motion/MagneticButton"
 import { RuxiLiveCard } from "@/components/sections/RuxiLiveCard"
@@ -71,13 +71,12 @@ export function HeroSection() {
             {/* Sub-headline */}
             <motion.p
               variants={itemVariants}
-              className="max-w-xl text-lg sm:text-xl text-muted-foreground leading-relaxed mb-10"
+              className="max-w-lg text-lg sm:text-xl text-muted-foreground leading-relaxed mb-10"
             >
-              PRUXIN unifies your team's knowledge, automates repetitive decisions,
-              and surfaces the right context — exactly when you need it.
+              Never miss a customer call again. Ruxi answers, books, and notifies — 24/7.
             </motion.p>
 
-            {/* CTA row */}
+            {/* Single primary CTA */}
             <motion.div
               variants={itemVariants}
               className="flex flex-col sm:flex-row items-start sm:items-center gap-4 mb-12"
@@ -86,21 +85,13 @@ export function HeroSection() {
                 <Button
                   size="lg"
                   className="bg-primary text-primary-foreground hover:bg-primary/90 glow-blue transition-all duration-300 font-semibold px-8 h-12 text-base group"
-                  onClick={() => track({ name: "cta_click", label: "Start Free Trial", location: "HeroSection" })}
+                  onClick={() => track({ name: "cta_click", label: "Build my Ruxi now", location: "HeroSection" })}
                 >
-                  Start Free Trial
+                  Build my Ruxi now
                   <ArrowRight className="ml-2 w-4 h-4 transition-transform duration-200 group-hover:translate-x-1" />
                 </Button>
               </MagneticButton>
-              <Button
-                size="lg"
-                variant="outline"
-                className="border-white/15 bg-white/5 hover:bg-white/10 text-foreground font-semibold px-8 h-12 text-base group backdrop-blur-sm"
-                onClick={() => track({ name: "cta_click", label: "Watch Demo", location: "HeroSection" })}
-              >
-                <Play className="mr-2 w-4 h-4 fill-current text-accent" />
-                Watch Demo
-              </Button>
+              <span className="text-sm text-muted-foreground">No credit card · Live in 10 min</span>
             </motion.div>
 
             {/* Social proof micro-stats */}
@@ -110,7 +101,7 @@ export function HeroSection() {
             >
               <div className="flex items-center gap-2">
                 <Users className="w-4 h-4 text-accent" />
-                <span>10k+ active teams</span>
+                <span>10k+ businesses</span>
               </div>
               <div className="flex items-center gap-2">
                 <Star className="w-4 h-4 text-accent fill-current" />
@@ -118,7 +109,7 @@ export function HeroSection() {
               </div>
               <div className="flex items-center gap-2">
                 <TrendingUp className="w-4 h-4 text-accent" />
-                <span>3× faster decisions</span>
+                <span>3× more bookings</span>
               </div>
             </motion.div>
           </motion.div>

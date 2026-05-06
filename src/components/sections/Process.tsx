@@ -1,129 +1,120 @@
-import { useRef } from "react"
-import { motion, useInView } from "framer-motion"
 import { Badge } from "@/components/ui/badge"
-import { PhoneCall, Brain, CalendarCheck, BellRing } from "lucide-react"
+import { FadeUp } from "@/components/motion/FadeUp"
+import { Image as ImageIcon } from "lucide-react"
 import { cn } from "@/lib/utils"
 
-const steps = [
+interface StoryMoment {
+  step: string
+  label: string
+  headline: string
+  caption: string
+  imageHint: string
+  accent: "cyan" | "blue"
+}
+
+const moments: StoryMoment[] = [
   {
-    number: "01",
-    icon: <PhoneCall className="w-6 h-6" />,
-    title: "Answer",
-    headline: "Ruxi greets every caller by name",
-    body: "The moment a call connects, Ruxi introduces itself naturally using your business name — indistinguishable from a trained human receptionist.",
-    accent: "text-accent",
-    border: "border-accent/30",
-    bg: "bg-accent/10",
-    glow: "glow-cyan",
+    step: "01",
+    label: "Answer",
+    headline: "Ruxi picks up. Every time.",
+    caption: "Sounds human. Speaks your brand.",
+    imageHint: "IMAGE: Ruxi Inbound Call Transcript UI — show the live call screen with caller ID, greeting script, and real-time transcript stream",
+    accent: "cyan",
   },
   {
-    number: "02",
-    icon: <Brain className="w-6 h-6" />,
-    title: "Understand",
-    headline: "Intent identified in seconds",
-    body: "Ruxi listens actively and classifies the caller's intent — booking, FAQ, complaint, or emergency — routing each scenario to the right outcome automatically.",
-    accent: "text-primary",
-    border: "border-primary/30",
-    bg: "bg-primary/10",
-    glow: "glow-blue",
+    step: "02",
+    label: "Understand",
+    headline: "Intent classified in seconds.",
+    caption: "Booking, FAQ, complaint, or emergency — routed instantly.",
+    imageHint: "IMAGE: Intent Classification Dashboard — show the AI intent panel with colour-coded categories (Booking / FAQ / Urgent) and confidence scores",
+    accent: "blue",
   },
   {
-    number: "03",
-    icon: <CalendarCheck className="w-6 h-6" />,
-    title: "Act",
+    step: "03",
+    label: "Act",
     headline: "Bookings made. Slots filled.",
-    body: "Ruxi books directly into your Google Calendar, answers FAQs from your knowledge base, or escalates an emergency — without you lifting a finger.",
-    accent: "text-accent",
-    border: "border-accent/30",
-    bg: "bg-accent/10",
-    glow: "glow-cyan",
+    caption: "Straight into your calendar. No lift required.",
+    imageHint: "IMAGE: Calendar Booking Confirmation UI — show the Google Calendar event creation modal with date picker, customer name pre-filled, and 'Confirmed' status",
+    accent: "cyan",
   },
   {
-    number: "04",
-    icon: <BellRing className="w-6 h-6" />,
-    title: "Notify",
-    headline: "A clean summary lands in your pocket",
-    body: "You receive an instant notification with caller details, intent summary, action taken, and recommended next steps — everything you need, nothing you don't.",
-    accent: "text-primary",
-    border: "border-primary/30",
-    bg: "bg-primary/10",
-    glow: "glow-blue",
+    step: "04",
+    label: "Notify",
+    headline: "A clean summary in your pocket.",
+    caption: "Caller details, intent, action taken. Nothing more.",
+    imageHint: "IMAGE: SMS & Email Notification Preview — show a mobile phone mock with the Ruxi summary SMS: caller name, intent tag, action taken, follow-up flag",
+    accent: "blue",
   },
 ]
 
-function StepCard({ step, index }: { step: (typeof steps)[0]; index: number }) {
-  const ref = useRef<HTMLDivElement>(null)
-  const inView = useInView(ref, { once: true, margin: "-80px" })
-
+function ImagePlaceholder({
+  hint,
+  accent,
+}: {
+  hint: string
+  accent: "cyan" | "blue"
+}) {
   return (
-    <motion.div
-      ref={ref}
-      initial={{ opacity: 0, x: index % 2 === 0 ? -32 : 32 }}
-      animate={inView ? { opacity: 1, x: 0 } : {}}
-      transition={{ duration: 0.6, ease: "easeOut", delay: 0.1 }}
-      className={cn(
-        "relative glass-card glass-card-hover rounded-2xl border p-7 flex gap-5 transition-all duration-500",
-        inView ? `border-white/20 bg-white/[0.06]` : "border-white/8 bg-white/[0.03]"
-      )}
-    >
-      {/* Step number */}
-      <div className="flex-shrink-0 flex flex-col items-center gap-3">
+    <div className="relative w-full aspect-video rounded-xl overflow-hidden border border-white/10 bg-white/[0.02]">
+      {/* Ambient inner glow */}
+      <div
+        className={cn(
+          "absolute inset-0 pointer-events-none",
+          accent === "cyan"
+            ? "bg-[radial-gradient(ellipse_60%_50%_at_50%_60%,oklch(0.88_0.12_196_/_12%)_0%,transparent_70%)]"
+            : "bg-[radial-gradient(ellipse_60%_50%_at_50%_60%,oklch(0.50_0.22_264_/_12%)_0%,transparent_70%)]"
+        )}
+        aria-hidden="true"
+      />
+
+      {/* Grid lines overlay */}
+      <div
+        className="absolute inset-0 opacity-[0.04] pointer-events-none"
+        style={{
+          backgroundImage:
+            "linear-gradient(oklch(1 0 0) 1px, transparent 1px), linear-gradient(90deg, oklch(1 0 0) 1px, transparent 1px)",
+          backgroundSize: "32px 32px",
+        }}
+        aria-hidden="true"
+      />
+
+      {/* Centre icon */}
+      <div className="absolute inset-0 flex flex-col items-center justify-center gap-3 px-8">
         <div
           className={cn(
-            "w-12 h-12 rounded-xl flex items-center justify-center border transition-all duration-500",
-            step.bg,
-            step.border,
-            step.accent,
-            inView ? step.glow : ""
+            "w-12 h-12 rounded-xl flex items-center justify-center border",
+            accent === "cyan"
+              ? "bg-accent/10 border-accent/25 text-accent"
+              : "bg-primary/10 border-primary/25 text-primary"
           )}
         >
-          {step.icon}
+          <ImageIcon className="w-5 h-5" />
         </div>
-        {/* Connector line (not on last item) */}
-        {index < steps.length - 1 && (
-          <motion.div
-            initial={{ scaleY: 0 }}
-            animate={inView ? { scaleY: 1 } : {}}
-            transition={{ duration: 0.5, delay: 0.4, ease: "easeOut" }}
-            style={{ transformOrigin: "top" }}
-            className="w-px flex-1 min-h-12 bg-gradient-to-b from-white/20 to-transparent"
-          />
-        )}
-      </div>
-
-      {/* Content */}
-      <div className="flex flex-col gap-2 pt-1">
-        <div className="flex items-center gap-3">
-          <span className={cn("text-xs font-bold tracking-widest uppercase", step.accent)}>
-            {step.number}
-          </span>
-          <Badge
-            variant="outline"
-            className={cn(
-              "border text-xs font-semibold px-2 py-0.5 tracking-wide",
-              step.border,
-              step.accent,
-              step.bg
-            )}
-          >
-            {step.title}
-          </Badge>
-        </div>
-        <h3 className="text-xl font-bold tracking-tight text-foreground">
-          {step.headline}
-        </h3>
-        <p className="text-sm text-muted-foreground leading-relaxed">
-          {step.body}
+        <p className="text-[11px] font-mono text-center text-muted-foreground/70 leading-relaxed max-w-xs">
+          {hint}
         </p>
       </div>
-    </motion.div>
+
+      {/* Corner badge */}
+      <div className="absolute top-3 left-3">
+        <span
+          className={cn(
+            "text-[9px] font-bold tracking-widest uppercase px-2 py-1 rounded border",
+            accent === "cyan"
+              ? "bg-accent/10 border-accent/20 text-accent"
+              : "bg-primary/10 border-primary/20 text-primary"
+          )}
+        >
+          Placeholder
+        </span>
+      </div>
+    </div>
   )
 }
 
 export function Process() {
   return (
     <section className="relative py-24 lg:py-32 overflow-hidden">
-      {/* Ambient glow */}
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
@@ -135,8 +126,7 @@ export function Process() {
       <div className="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-white/10 to-transparent" />
 
       <div className="max-w-7xl mx-auto px-6 relative z-10">
-        {/* Section header */}
-        <div className="text-center mb-16">
+        <FadeUp className="text-center mb-20">
           <Badge
             variant="outline"
             className="border-accent/30 text-accent bg-accent/5 mb-6 px-4 py-1.5 text-xs font-semibold tracking-wider uppercase"
@@ -144,20 +134,81 @@ export function Process() {
             How it Works
           </Badge>
           <h2 className="text-4xl lg:text-5xl font-bold tracking-tight mb-4">
-            Meet{" "}
-            <span className="gradient-text">Ruxi</span>
-            {" "}— your AI receptionist
+            Meet <span className="gradient-text">Ruxi</span> — your AI receptionist
           </h2>
-          <p className="text-lg text-muted-foreground max-w-xl mx-auto leading-relaxed">
-            Four steps from ring to resolution. No training required, no scripts to write.
+          <p className="text-lg text-muted-foreground max-w-lg mx-auto">
+            Four steps. Ring to resolution. No scripts to write.
           </p>
-        </div>
+        </FadeUp>
 
-        {/* Steps — two column desktop, single column mobile */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-5 max-w-4xl mx-auto">
-          {steps.map((step, i) => (
-            <StepCard key={step.number} step={step} index={i} />
-          ))}
+        {/* Story moments — alternating layout */}
+        <div className="flex flex-col gap-24">
+          {moments.map((moment, i) => {
+            const isEven = i % 2 === 0
+            return (
+              <FadeUp key={moment.step} delay={0.05}>
+                <div
+                  className={cn(
+                    "grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center",
+                    !isEven && "lg:[&>*:first-child]:order-2"
+                  )}
+                >
+                  {/* Image container */}
+                  <div className="relative">
+                    {/* Outer glow */}
+                    <div
+                      className={cn(
+                        "absolute -inset-2 rounded-2xl blur-xl pointer-events-none opacity-50",
+                        moment.accent === "cyan"
+                          ? "bg-gradient-to-br from-accent/20 to-transparent"
+                          : "bg-gradient-to-br from-primary/20 to-transparent"
+                      )}
+                    />
+                    <div className="relative glass-card rounded-2xl border border-white/10 p-3">
+                      {/* Window chrome */}
+                      <div className="flex items-center gap-1.5 px-2 pb-2.5 mb-1">
+                        <div className="w-2.5 h-2.5 rounded-full bg-red-500/50" />
+                        <div className="w-2.5 h-2.5 rounded-full bg-yellow-500/50" />
+                        <div className="w-2.5 h-2.5 rounded-full bg-accent/50" />
+                      </div>
+                      <ImagePlaceholder hint={moment.imageHint} accent={moment.accent} />
+                    </div>
+                  </div>
+
+                  {/* Copy */}
+                  <div className="flex flex-col gap-5">
+                    <div className="flex items-center gap-3">
+                      <span
+                        className={cn(
+                          "text-xs font-bold tracking-widest uppercase",
+                          moment.accent === "cyan" ? "text-accent" : "text-primary"
+                        )}
+                      >
+                        {moment.step}
+                      </span>
+                      <Badge
+                        variant="outline"
+                        className={cn(
+                          "text-xs font-semibold px-2.5 py-0.5 tracking-wide border",
+                          moment.accent === "cyan"
+                            ? "border-accent/30 text-accent bg-accent/8"
+                            : "border-primary/30 text-primary bg-primary/8"
+                        )}
+                      >
+                        {moment.label}
+                      </Badge>
+                    </div>
+                    <h3 className="text-3xl lg:text-4xl font-bold tracking-tight text-foreground leading-tight">
+                      {moment.headline}
+                    </h3>
+                    <p className="text-lg text-muted-foreground">
+                      {moment.caption}
+                    </p>
+                  </div>
+                </div>
+              </FadeUp>
+            )
+          })}
         </div>
       </div>
     </section>

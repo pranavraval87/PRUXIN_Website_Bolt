@@ -21,35 +21,35 @@ const tiles: BentoTile[] = [
     icon: <Scale className="w-8 h-8" />,
     industry: "Solicitors",
     headline: "From Missed Briefs to Billed Hours",
-    body: "Every unanswered call is a potential client lost to the firm down the street. Capture every enquiry, day or night.",
+    body: "Every missed call is a client lost. Ruxi captures every enquiry, day or night.",
     span: "md:col-span-4",
   },
   {
     icon: <Wrench className="w-8 h-8" />,
     industry: "Garages",
     headline: "From Missed Bookings to Full Bays",
-    body: "When you're under a bonnet you can't answer the phone. PRUXIN takes the booking and sends you the details.",
+    body: "Under a bonnet? Ruxi takes the booking and sends you the details.",
     span: "md:col-span-4",
   },
   {
     icon: <Stethoscope className="w-8 h-8" />,
     industry: "Clinics",
-    headline: "From Overloaded Reception to Seamless Scheduling",
-    body: "Reduce front-desk pressure and missed appointments with intelligent call handling built for healthcare.",
+    headline: "Seamless Scheduling, Zero Missed Appointments",
+    body: "Ruxi handles front-desk calls so your team can focus on patients.",
     span: "md:col-span-4",
   },
   {
     icon: <UtensilsCrossed className="w-8 h-8" />,
     industry: "Restaurants",
     headline: "From Missed Calls to Full Tables",
-    body: "Your team is busy during service. PRUXIN captures reservations and special requests without interrupting the kitchen.",
+    body: "Busy during service? Ruxi takes reservations without interrupting the kitchen.",
     span: "md:col-span-6",
   },
   {
     icon: <HardHat className="w-8 h-8" />,
     industry: "Trades",
     headline: "From On-Site to On-the-Books",
-    body: "On a roof or up a ladder, you can't always answer. Every missed call could be a job worth hundreds. Don't lose it.",
+    body: "On a roof? Every missed call is a job worth hundreds. Ruxi books it.",
     span: "md:col-span-6",
   },
 ]
@@ -115,8 +115,8 @@ export function IndustryGrid() {
             Purpose-built for{" "}
             <span className="gradient-text">UK small businesses</span>
           </h2>
-          <p className="text-lg text-muted-foreground max-w-xl mx-auto leading-relaxed">
-            PRUXIN understands the patterns, terminology, and pressures of your sector — not just phone calls.
+          <p className="text-lg text-muted-foreground max-w-lg mx-auto">
+            Built for your sector. Not just phone calls.
           </p>
         </div>
 

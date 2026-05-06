@@ -9,6 +9,7 @@ import { PainSection } from "@/components/sections/PainSection"
 import { DashboardPreview } from "@/components/sections/DashboardPreview"
 import { RuxiLiveCard } from "@/components/sections/RuxiLiveCard"
 import { Process } from "@/components/sections/Process"
+import { Walkthrough } from "@/components/sections/Walkthrough"
 import { TrustSection } from "@/components/sections/TrustSection"
 import { PricingSection } from "@/components/sections/PricingSection"
 import { FinalCTA } from "@/components/sections/FinalCTA"
@@ -44,6 +45,9 @@ function HomePage() {
       </ErrorBoundary>
       <ErrorBoundary section="Process" inline>
         <Process />
+      </ErrorBoundary>
+      <ErrorBoundary section="Walkthrough" inline>
+        <Walkthrough />
       </ErrorBoundary>
       <ErrorBoundary section="TrustSection" inline>
         <TrustSection />

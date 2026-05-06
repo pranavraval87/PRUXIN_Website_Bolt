@@ -113,8 +113,8 @@ export function DashboardPreview() {
             Full transparency.{" "}
             <span className="gradient-text">Zero surprises.</span>
           </h2>
-          <p className="text-lg text-muted-foreground max-w-xl mx-auto leading-relaxed">
-            A pay-as-you-go model means you only pay for what you use. See every penny, every call, in real time.
+          <p className="text-lg text-muted-foreground max-w-md mx-auto">
+            Pay only for what you use. Every penny, every call, in real time.
           </p>
         </div>
 

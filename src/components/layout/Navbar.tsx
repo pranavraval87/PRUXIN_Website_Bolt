@@ -47,13 +47,13 @@ export function Navbar() {
             href="#login"
             className="text-sm text-muted-foreground hover:text-foreground transition-colors duration-200"
           >
-            Sign in
+            Check my calls
           </a>
           <Button
             size="sm"
             className="bg-primary text-primary-foreground hover:bg-primary/90 glow-blue transition-all duration-300 font-medium"
           >
-            Get Started
+            Build my Ruxi now
           </Button>
         </div>
 
@@ -86,10 +86,10 @@ export function Navbar() {
                 href="#login"
                 className="px-4 py-3 text-sm text-muted-foreground hover:text-foreground transition-colors"
               >
-                Sign in
+                Check my calls
               </a>
               <Button className="bg-primary text-primary-foreground w-full font-medium">
-                Get Started
+                Build my Ruxi now
               </Button>
             </div>
           </div>

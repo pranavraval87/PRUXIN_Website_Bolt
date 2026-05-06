@@ -72,8 +72,8 @@ export function TrustSection() {
             Built for the{" "}
             <span className="gradient-text">UK regulatory landscape</span>
           </h2>
-          <p className="text-lg text-muted-foreground max-w-xl mx-auto leading-relaxed">
-            Every design decision is made with UK law in mind — protecting your business and your customers.
+          <p className="text-lg text-muted-foreground max-w-md mx-auto">
+            UK law built in. Protecting your business from day one.
           </p>
         </motion.div>
 
@@ -194,3 +194,6 @@ function ComplianceCard({
     </motion.div>
   )
 }
+
+
+export { TrustSection }

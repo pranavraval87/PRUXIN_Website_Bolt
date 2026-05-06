@@ -1,7 +1,7 @@
 import { useRef } from "react"
 import { motion, useInView } from "framer-motion"
 import { Button } from "@/components/ui/button"
-import { ArrowRight, Zap, CalendarDays } from "lucide-react"
+import { ArrowRight, Zap } from "lucide-react"
 import { useTheme } from "@/components/theme-provider"
 import { track } from "@/lib/analytics"
 import { MagneticButton } from "@/components/motion/MagneticButton"
@@ -50,34 +50,22 @@ export function FinalCTA() {
           </h2>
 
           {/* Sub-copy */}
-          <p className="text-xl text-muted-foreground leading-relaxed max-w-2xl">
-            Every unanswered call is a customer sizing up your competitor.
-            Ruxi is live in under 10 minutes — no engineers, no contracts, no risk.
+          <p className="text-xl text-muted-foreground max-w-xl">
+            Every unanswered call is a customer choosing your competitor. Ruxi is live in under 10 minutes.
           </p>
 
-          {/* CTA buttons */}
-          <div className="flex flex-col sm:flex-row gap-4 items-center justify-center w-full">
-            <MagneticButton>
-              <Button
-                size="lg"
-                className="bg-primary text-primary-foreground hover:bg-primary/90 glow-blue font-semibold text-base px-8 h-14 gap-2.5 min-w-48"
-                onClick={() => track({ name: "cta_click", label: "Book a Demo", location: "FinalCTA" })}
-              >
-                <CalendarDays className="w-5 h-5" />
-                Book a Demo
-                <ArrowRight className="w-4 h-4" />
-              </Button>
-            </MagneticButton>
+          {/* Single primary CTA */}
+          <MagneticButton>
             <Button
               size="lg"
-              variant="outline"
-              className="border-accent/30 text-accent bg-accent/5 hover:bg-accent/10 hover:border-accent/50 font-semibold text-base px-8 h-14 gap-2.5 min-w-48"
-              onClick={() => track({ name: "cta_click", label: "Claim Free Credit", location: "FinalCTA" })}
+              className="bg-primary text-primary-foreground hover:bg-primary/90 glow-blue font-semibold text-base px-10 h-14 gap-2.5"
+              onClick={() => track({ name: "cta_click", label: "Build my Ruxi now", location: "FinalCTA" })}
             >
               <Zap className="w-5 h-5 fill-current" />
-              Claim £5 Free Credit
+              Build my Ruxi now
+              <ArrowRight className="w-4 h-4" />
             </Button>
-          </div>
+          </MagneticButton>
 
           {/* Trust micro-copy */}
           <p className="text-sm text-muted-foreground">

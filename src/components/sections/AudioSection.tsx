@@ -1,5 +1,4 @@
 import { useState, useRef, useCallback } from "react"
-import { Button } from "@/components/ui/button"
 import { Avatar, AvatarFallback } from "@/components/ui/avatar"
 import { Slider } from "@/components/ui/slider"
 import { Badge } from "@/components/ui/badge"
@@ -203,11 +202,11 @@ export function AudioSection() {
             Customer Stories
           </Badge>
           <h2 className="text-4xl lg:text-5xl font-bold tracking-tight mb-4">
-            Hear it from the{" "}
-            <span className="gradient-text">people building</span>
+            Hear it from{" "}
+            <span className="gradient-text">real customers</span>
           </h2>
-          <p className="text-lg text-muted-foreground max-w-xl mx-auto leading-relaxed">
-            Real engineers and leaders sharing how PRUXIN changed how their teams operate.
+          <p className="text-lg text-muted-foreground max-w-md mx-auto">
+            Engineers and leaders on what changed.
           </p>
         </FadeUp>
 
@@ -220,17 +219,10 @@ export function AudioSection() {
           ))}
         </div>
 
-        {/* Bottom CTA */}
-        <FadeUp delay={0.2} className="text-center mt-14">
-          <p className="text-muted-foreground text-sm mb-4">
-            Join thousands of teams who've already made the switch
+        <FadeUp delay={0.2} className="text-center mt-10">
+          <p className="text-muted-foreground text-sm">
+            Joining <span className="text-foreground font-medium">10,000+</span> businesses already on Ruxi.
           </p>
-          <Button
-            size="lg"
-            className="bg-primary text-primary-foreground hover:bg-primary/90 glow-blue font-semibold px-8"
-          >
-            Read All Case Studies
-          </Button>
         </FadeUp>
       </div>
     </section>
