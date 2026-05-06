@@ -1,0 +1,210 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+
+  /* PRUXIN brand tokens */
+  --color-brand-blue: var(--brand-blue);
+  --color-brand-blue-foreground: var(--brand-blue-foreground);
+  --color-glow-cyan: var(--glow-cyan);
+  --color-glow-cyan-foreground: var(--glow-cyan-foreground);
+  --color-obsidian: var(--obsidian);
+  --color-obsidian-light: var(--obsidian-light);
+  --color-obsidian-lighter: var(--obsidian-lighter);
+}
+
+/*
+  ============================================================
+  PRUXIN "OBSIDIAN CLARITY" DESIGN SYSTEM
+  ============================================================
+  Canvas:         Deep Obsidian  #0B1020  oklch(0.13 0.03 255)
+  Primary Action: Brand Blue     #4352E8  oklch(0.50 0.22 264)
+  Live Glow:      Cyan-Teal      #6EE7F2  oklch(0.88 0.12 196)
+
+  Visual Rules:
+  - Dark-first: :root IS the dark theme
+  - Glassmorphism: glass-card, glass-nav utilities
+  - Glow accents: glow-cyan, glow-blue utilities
+  - Gradient text: gradient-text utility
+  ============================================================
+*/
+
+:root {
+  --radius: 0.5rem;
+
+  /* PRUXIN brand palette */
+  --brand-blue: oklch(0.50 0.22 264);
+  --brand-blue-foreground: oklch(0.985 0 0);
+  --glow-cyan: oklch(0.88 0.12 196);
+  --glow-cyan-foreground: oklch(0.12 0 0);
+  --obsidian: oklch(0.13 0.03 255);
+  --obsidian-light: oklch(0.18 0.03 255);
+  --obsidian-lighter: oklch(0.23 0.025 255);
+
+  /* Semantic tokens */
+  --background: oklch(0.13 0.03 255);
+  --foreground: oklch(0.96 0.005 240);
+  --card: oklch(0.17 0.03 255);
+  --card-foreground: oklch(0.96 0.005 240);
+  --popover: oklch(0.20 0.03 255);
+  --popover-foreground: oklch(0.96 0.005 240);
+  --primary: oklch(0.50 0.22 264);
+  --primary-foreground: oklch(0.985 0 0);
+  --secondary: oklch(0.20 0.025 255);
+  --secondary-foreground: oklch(0.85 0.01 240);
+  --muted: oklch(0.20 0.025 255);
+  --muted-foreground: oklch(0.60 0.015 240);
+  --accent: oklch(0.88 0.12 196);
+  --accent-foreground: oklch(0.12 0 0);
+  --destructive: oklch(0.62 0.22 27);
+  --destructive-foreground: oklch(0.985 0 0);
+  --border: oklch(1 0 0 / 8%);
+  --input: oklch(1 0 0 / 10%);
+  --ring: oklch(0.88 0.12 196);
+  --chart-1: oklch(0.50 0.22 264);
+  --chart-2: oklch(0.88 0.12 196);
+  --chart-3: oklch(0.65 0.18 230);
+  --chart-4: oklch(0.75 0.15 200);
+  --chart-5: oklch(0.45 0.20 280);
+  --sidebar: oklch(0.15 0.03 255);
+  --sidebar-foreground: oklch(0.96 0.005 240);
+  --sidebar-primary: oklch(0.50 0.22 264);
+  --sidebar-primary-foreground: oklch(0.985 0 0);
+  --sidebar-accent: oklch(0.20 0.025 255);
+  --sidebar-accent-foreground: oklch(0.85 0.01 240);
+  --sidebar-border: oklch(1 0 0 / 8%);
+  --sidebar-ring: oklch(0.88 0.12 196);
+}
+
+/* Dark class mirrors :root — design is dark-first */
+.dark {
+  --background: oklch(0.13 0.03 255);
+  --foreground: oklch(0.96 0.005 240);
+  --card: oklch(0.17 0.03 255);
+  --card-foreground: oklch(0.96 0.005 240);
+  --popover: oklch(0.20 0.03 255);
+  --popover-foreground: oklch(0.96 0.005 240);
+  --primary: oklch(0.50 0.22 264);
+  --primary-foreground: oklch(0.985 0 0);
+  --secondary: oklch(0.20 0.025 255);
+  --secondary-foreground: oklch(0.85 0.01 240);
+  --muted: oklch(0.20 0.025 255);
+  --muted-foreground: oklch(0.60 0.015 240);
+  --accent: oklch(0.88 0.12 196);
+  --accent-foreground: oklch(0.12 0 0);
+  --destructive: oklch(0.62 0.22 27);
+  --destructive-foreground: oklch(0.985 0 0);
+  --border: oklch(1 0 0 / 8%);
+  --input: oklch(1 0 0 / 10%);
+  --ring: oklch(0.88 0.12 196);
+  --chart-1: oklch(0.50 0.22 264);
+  --chart-2: oklch(0.88 0.12 196);
+  --chart-3: oklch(0.65 0.18 230);
+  --chart-4: oklch(0.75 0.15 200);
+  --chart-5: oklch(0.45 0.20 280);
+  --sidebar: oklch(0.15 0.03 255);
+  --sidebar-foreground: oklch(0.96 0.005 240);
+  --sidebar-primary: oklch(0.50 0.22 264);
+  --sidebar-primary-foreground: oklch(0.985 0 0);
+  --sidebar-accent: oklch(0.20 0.025 255);
+  --sidebar-accent-foreground: oklch(0.85 0.01 240);
+  --sidebar-border: oklch(1 0 0 / 8%);
+  --sidebar-ring: oklch(0.88 0.12 196);
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+@layer utilities {
+  /* Glassmorphism: elevated dark panel */
+  .glass-card {
+    background: oklch(1 0 0 / 5%);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid oklch(1 0 0 / 10%);
+  }
+
+  /* Glassmorphism: sticky navigation bar */
+  .glass-nav {
+    background: oklch(0.13 0.03 255 / 75%);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-bottom: 1px solid oklch(1 0 0 / 8%);
+  }
+
+  /* Cyan glow shadow */
+  .glow-cyan {
+    box-shadow: 0 0 24px 0 oklch(0.88 0.12 196 / 35%),
+                0 0 48px 0 oklch(0.88 0.12 196 / 15%);
+  }
+
+  /* Blue glow for primary actions */
+  .glow-blue {
+    box-shadow: 0 0 20px 0 oklch(0.50 0.22 264 / 40%),
+                0 0 40px 0 oklch(0.50 0.22 264 / 20%);
+  }
+
+  /* Gradient text: brand blue → glow cyan */
+  .gradient-text {
+    background: linear-gradient(
+      135deg,
+      oklch(0.65 0.22 264),
+      oklch(0.88 0.12 196)
+    );
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+  }
+
+  /* Radial ambient glow for hero background */
+  .hero-glow {
+    background:
+      radial-gradient(ellipse 80% 60% at 50% -10%, oklch(0.50 0.22 264 / 20%) 0%, transparent 70%),
+      radial-gradient(ellipse 50% 40% at 80% 50%, oklch(0.88 0.12 196 / 10%) 0%, transparent 60%);
+  }
+}
