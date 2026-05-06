@@ -19,10 +19,10 @@ import {
   setMuted,
   onCallEnd,
   onVolumeLevel,
+  ASSISTANT_ID,
   type CallState,
 } from "@/lib/vapiClient"
 
-const ASSISTANT_ID = import.meta.env.VITE_VAPI_ASSISTANT_ID ?? ""
 const NUM_BARS = 40
 
 interface Props {
@@ -67,9 +67,6 @@ export function RuxiLiveCard({ industrySlug }: Props) {
   }, [])
 
   const handleStart = useCallback(async () => {
-    if (!ASSISTANT_ID) {
-      console.warn("[Ruxi] VITE_VAPI_ASSISTANT_ID is not set")
-    }
     setCallState("requesting")
     track({ name: "vapi_call_start", industry_slug: industrySlug })
 
