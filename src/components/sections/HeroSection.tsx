@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button"
 import { ArrowRight, Play, Users, Star, TrendingUp } from "lucide-react"
+import { track } from "@/lib/analytics"
 
 export function HeroSection() {
   return (
@@ -46,6 +47,7 @@ export function HeroSection() {
           <Button
             size="lg"
             className="bg-primary text-primary-foreground hover:bg-primary/90 glow-blue transition-all duration-300 font-semibold px-8 h-12 text-base group"
+            onClick={() => track({ name: "cta_click", label: "Start Free Trial", location: "HeroSection" })}
           >
             Start Free Trial
             <ArrowRight className="ml-2 w-4 h-4 transition-transform duration-200 group-hover:translate-x-1" />
@@ -54,6 +56,7 @@ export function HeroSection() {
             size="lg"
             variant="outline"
             className="border-white/15 bg-white/5 hover:bg-white/10 text-foreground font-semibold px-8 h-12 text-base group backdrop-blur-sm"
+            onClick={() => track({ name: "cta_click", label: "Watch Demo", location: "HeroSection" })}
           >
             <Play className="mr-2 w-4 h-4 fill-current text-accent" />
             Watch Demo
