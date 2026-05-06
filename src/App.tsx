@@ -13,6 +13,7 @@ import { TrustSection } from "@/components/sections/TrustSection"
 import { PricingSection } from "@/components/sections/PricingSection"
 import { FinalCTA } from "@/components/sections/FinalCTA"
 import { IndustryPage } from "@/pages/IndustryPage"
+import { NotFoundPage } from "@/pages/NotFoundPage"
 import { ErrorBoundary } from "@/components/errors/ErrorBoundary"
 import { OfflineBanner } from "@/components/errors/OfflineBanner"
 import { useScrollDepth } from "@/hooks/useScrollDepth"
@@ -67,6 +68,11 @@ export function App() {
           <Route path="/industries/:slug" element={
             <ErrorBoundary section="IndustryPage">
               <IndustryPage />
+            </ErrorBoundary>
+          } />
+          <Route path="*" element={
+            <ErrorBoundary section="NotFoundPage">
+              <NotFoundPage />
             </ErrorBoundary>
           } />
         </Routes>
