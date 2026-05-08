@@ -4,25 +4,22 @@ import { Toaster } from "@/components/ui/sonner"
 import { RootLayout } from "@/components/layout/RootLayout"
 import { ScrollToTop } from "@/components/layout/ScrollToTop"
 import { HeroSection } from "@/components/sections/HeroSection"
-import { AudioSection } from "@/components/sections/AudioSection"
-import { IndustryGrid } from "@/components/sections/IndustryGrid"
-import { PainSection } from "@/components/sections/PainSection"
-import { DashboardPreview } from "@/components/sections/DashboardPreview"
-import { RuxiLiveCard } from "@/components/sections/RuxiLiveCard"
+import { ReplacementCalculator } from "@/components/sections/ReplacementCalculator"
 import { Process } from "@/components/sections/Process"
-import { Walkthrough } from "@/components/sections/Walkthrough"
-import { TrustSection } from "@/components/sections/TrustSection"
-import { PodcastSection } from "@/components/sections/PodcastSection"
-import { PricingSection } from "@/components/sections/PricingSection"
 import { FinalCTA } from "@/components/sections/FinalCTA"
 import { IndustryPage } from "@/pages/IndustryPage"
 import { LegalPage } from "@/pages/LegalPage"
 import { WebAgentPage } from "@/pages/WebAgentPage"
+import { PodcastsPage } from "@/pages/PodcastsPage"
+import { FeaturesPage } from "@/pages/FeaturesPage"
 import { NotFoundPage } from "@/pages/NotFoundPage"
 import { ErrorBoundary } from "@/components/errors/ErrorBoundary"
 import { OfflineBanner } from "@/components/errors/OfflineBanner"
 import { useScrollDepth } from "@/hooks/useScrollDepth"
 
+// ── Simplified "Rome" homepage ────────────────────────────────────────────────
+// Four sections only: Hero (problem/promise) → Calculator (£30k+ value)
+// → Process (the Sausage Factory) → FinalCTA (the Brass Ball Guarantee)
 function HomePage() {
   const mainRef = useRef<HTMLElement | null>(null)
   useScrollDepth(mainRef)
@@ -32,35 +29,11 @@ function HomePage() {
       <ErrorBoundary section="HeroSection" inline>
         <HeroSection />
       </ErrorBoundary>
-      <ErrorBoundary section="AudioSection" inline>
-        <AudioSection />
-      </ErrorBoundary>
-      <ErrorBoundary section="IndustryGrid" inline>
-        <IndustryGrid />
-      </ErrorBoundary>
-      <ErrorBoundary section="PainSection" inline>
-        <PainSection />
-      </ErrorBoundary>
-      <ErrorBoundary section="DashboardPreview" inline>
-        <DashboardPreview />
-      </ErrorBoundary>
-      <ErrorBoundary section="RuxiLiveCard" inline>
-        <RuxiLiveCard />
+      <ErrorBoundary section="ReplacementCalculator" inline>
+        <ReplacementCalculator />
       </ErrorBoundary>
       <ErrorBoundary section="Process" inline>
         <Process />
-      </ErrorBoundary>
-      <ErrorBoundary section="Walkthrough" inline>
-        <Walkthrough />
-      </ErrorBoundary>
-      <ErrorBoundary section="TrustSection" inline>
-        <TrustSection />
-      </ErrorBoundary>
-      <ErrorBoundary section="PodcastSection" inline>
-        <PodcastSection />
-      </ErrorBoundary>
-      <ErrorBoundary section="PricingSection" inline>
-        <PricingSection />
       </ErrorBoundary>
       <ErrorBoundary section="FinalCTA" inline>
         <FinalCTA />
@@ -77,6 +50,16 @@ export function App() {
         <ScrollToTop />
         <Routes>
           <Route path="/" element={<HomePage />} />
+          <Route path="/features" element={
+            <ErrorBoundary section="FeaturesPage">
+              <FeaturesPage />
+            </ErrorBoundary>
+          } />
+          <Route path="/podcasts" element={
+            <ErrorBoundary section="PodcastsPage">
+              <PodcastsPage />
+            </ErrorBoundary>
+          } />
           <Route path="/industries/:slug" element={
             <ErrorBoundary section="IndustryPage">
               <IndustryPage />

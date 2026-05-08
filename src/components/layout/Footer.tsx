@@ -94,7 +94,7 @@ const columns = [
     heading: "Resources",
     items: [
       { label: "Blog",           active: false },
-      { label: "Podcasts",       active: false },
+      { label: "Podcasts",       active: true,  to: "/podcasts" },
       { label: "Documentation",  active: false },
     ],
   },
@@ -172,13 +172,13 @@ export function Footer() {
             ))}
           </div>
 
-          {/* Bottom bar — legal links + Cookie Preferences */}
+          {/* Bottom bar — single legal link + Cookie Preferences */}
           <div className="mt-12 pt-6 border-t border-white/8 flex flex-wrap items-center justify-center sm:justify-between gap-4 text-xs text-muted-foreground">
             <p>Registered in England &amp; Wales.</p>
             <div className="flex flex-wrap gap-5 justify-center">
-              <Link to="/legal/privacy" className="hover:text-foreground transition-colors">Privacy</Link>
-              <Link to="/legal/terms"   className="hover:text-foreground transition-colors">Terms</Link>
-              <Link to="/legal/dpa"     className="hover:text-foreground transition-colors">GDPR</Link>
+              <Link to="/legal" className="hover:text-foreground transition-colors">
+                Legal &amp; Compliance
+              </Link>
               <button
                 id="cky-btn"
                 onClick={handleCookiePreferences}
