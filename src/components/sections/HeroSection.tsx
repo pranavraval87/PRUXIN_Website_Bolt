@@ -1,4 +1,5 @@
 import { useState } from "react"
+import { Link } from "react-router-dom"
 import { motion, type Variants } from "framer-motion"
 import { Button } from "@/components/ui/button"
 import { ArrowRight, Users, Star, TrendingUp } from "lucide-react"
@@ -22,7 +23,11 @@ export function HeroSection() {
   const isCallActive = callState === "active"
 
   return (
-    <section className="relative min-h-screen flex flex-col justify-center overflow-hidden">
+    <section aria-labelledby="hero-heading" className="relative min-h-screen flex flex-col justify-center overflow-hidden">
+      {/* Anchor targets for navbar product links */}
+      <span id="product-inbound" className="absolute top-0" aria-hidden="true" />
+      <span id="product-outbound" className="absolute top-0" aria-hidden="true" />
+
       {/* Ambient background glow */}
       <div className="absolute inset-0 hero-glow pointer-events-none" aria-hidden="true" />
 
@@ -59,6 +64,7 @@ export function HeroSection() {
 
             {/* Primary headline */}
             <motion.h1
+              id="hero-heading"
               variants={itemVariants}
               className="text-5xl sm:text-6xl xl:text-7xl font-bold tracking-tight leading-[1.08] mb-6"
             >
@@ -85,10 +91,13 @@ export function HeroSection() {
                 <Button
                   size="lg"
                   className="bg-primary text-primary-foreground hover:bg-primary/90 glow-blue transition-all duration-300 font-semibold px-8 h-12 text-base group rounded-full"
+                  asChild
                   onClick={() => track({ name: "cta_click", label: "Build my Ruxi now", location: "HeroSection" })}
                 >
-                  Build my Ruxi now
-                  <ArrowRight className="ml-2 w-4 h-4 transition-transform duration-200 group-hover:translate-x-1" />
+                  <Link to="/onboarding">
+                    Build my Ruxi now
+                    <ArrowRight aria-hidden="true" className="ml-2 w-4 h-4 transition-transform duration-200 group-hover:translate-x-1" />
+                  </Link>
                 </Button>
               </MagneticButton>
               <span className="text-sm text-muted-foreground">No credit card · Live in 10 min</span>
@@ -100,15 +109,15 @@ export function HeroSection() {
               className="flex flex-wrap gap-6 text-sm text-muted-foreground"
             >
               <div className="flex items-center gap-2">
-                <Users className="w-4 h-4 text-accent" />
+                <Users aria-hidden="true" className="w-4 h-4 text-accent" />
                 <span>10k+ businesses</span>
               </div>
               <div className="flex items-center gap-2">
-                <Star className="w-4 h-4 text-accent fill-current" />
+                <Star aria-hidden="true" className="w-4 h-4 text-accent fill-current" />
                 <span>4.9 / 5 on G2</span>
               </div>
               <div className="flex items-center gap-2">
-                <TrendingUp className="w-4 h-4 text-accent" />
+                <TrendingUp aria-hidden="true" className="w-4 h-4 text-accent" />
                 <span>3× more bookings</span>
               </div>
             </motion.div>

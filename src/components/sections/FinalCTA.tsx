@@ -1,4 +1,5 @@
 import { useRef } from "react"
+import { Link } from "react-router-dom"
 import { motion, useInView } from "framer-motion"
 import { Button } from "@/components/ui/button"
 import { ArrowRight, Zap } from "lucide-react"
@@ -10,7 +11,7 @@ export function FinalCTA() {
   const inView = useInView(ref, { once: true, margin: "-80px" })
 
   return (
-    <section className="relative py-24 lg:py-32 overflow-hidden">
+    <section aria-labelledby="final-cta-heading" className="relative py-24 lg:py-32 overflow-hidden">
       {/* Top separator */}
       <div className="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-white/15 to-transparent" />
 
@@ -39,7 +40,7 @@ export function FinalCTA() {
           </div>
 
           {/* Headline */}
-          <h2 className="text-5xl sm:text-6xl lg:text-7xl font-bold tracking-tight leading-[1.05]">
+          <h2 id="final-cta-heading" className="text-5xl sm:text-6xl lg:text-7xl font-bold tracking-tight leading-[1.05]">
             Stop losing customers{" "}
             <br className="hidden sm:block" />
             to your{" "}
@@ -56,11 +57,14 @@ export function FinalCTA() {
             <Button
               size="lg"
               className="bg-primary text-primary-foreground hover:bg-primary/90 glow-blue font-semibold text-base px-10 h-14 gap-2.5 rounded-full"
+              asChild
               onClick={() => track({ name: "cta_click", label: "Build my Ruxi now", location: "FinalCTA" })}
             >
-              <Zap className="w-5 h-5 fill-current" />
-              Build my Ruxi now
-              <ArrowRight className="w-4 h-4" />
+              <Link to="/onboarding">
+                <Zap aria-hidden="true" className="w-5 h-5 fill-current" />
+                Build my Ruxi now
+                <ArrowRight aria-hidden="true" className="w-4 h-4" />
+              </Link>
             </Button>
           </MagneticButton>
 

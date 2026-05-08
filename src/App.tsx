@@ -12,6 +12,7 @@ import { LegalPage } from "@/pages/LegalPage"
 import { WebAgentPage } from "@/pages/WebAgentPage"
 import { PodcastsPage } from "@/pages/PodcastsPage"
 import { FeaturesPage } from "@/pages/FeaturesPage"
+import { OnboardingPage } from "@/pages/OnboardingPage"
 import { NotFoundPage } from "@/pages/NotFoundPage"
 import { ErrorBoundary } from "@/components/errors/ErrorBoundary"
 import { OfflineBanner } from "@/components/errors/OfflineBanner"
@@ -78,6 +79,11 @@ export function App() {
           <Route path="/product/web-agent" element={
             <ErrorBoundary section="WebAgentPage">
               <WebAgentPage />
+            </ErrorBoundary>
+          } />
+          <Route path="/onboarding" element={
+            <ErrorBoundary section="OnboardingPage">
+              <OnboardingPage />
             </ErrorBoundary>
           } />
           <Route path="*" element={

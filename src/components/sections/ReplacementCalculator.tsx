@@ -1,4 +1,5 @@
 import { useState } from "react"
+import { Link } from "react-router-dom"
 import { motion } from "framer-motion"
 import { PoundSterling, TrendingUp, Clock, Users } from "lucide-react"
 import { Slider } from "@/components/ui/slider"
@@ -51,7 +52,7 @@ export function ReplacementCalculator() {
   ]
 
   return (
-    <section id="calculator" className="py-24 lg:py-32 relative">
+    <section id="calculator" aria-labelledby="calculator-heading" className="py-24 lg:py-32 relative">
       <div
         className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-white/15 to-transparent"
         aria-hidden="true"
@@ -61,10 +62,10 @@ export function ReplacementCalculator() {
         {/* Header */}
         <div className="text-center mb-16">
           <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full glass-card border border-accent/25 text-accent text-xs font-semibold tracking-wide uppercase mb-6">
-            <Clock className="w-3.5 h-3.5" />
+            <Clock aria-hidden="true" className="w-3.5 h-3.5" />
             Replacement Value Calculator
           </div>
-          <h2 className="text-4xl sm:text-5xl font-bold tracking-tight text-balance mb-4">
+          <h2 id="calculator-heading" className="text-4xl sm:text-5xl font-bold tracking-tight text-balance mb-4">
             How much is your voicemail{" "}
             <span className="gradient-text">costing you?</span>
           </h2>
@@ -80,14 +81,17 @@ export function ReplacementCalculator() {
             {/* Slider: missed calls */}
             <div>
               <div className="flex items-center justify-between mb-3">
-                <label className="text-sm font-medium text-foreground">
+                <label htmlFor="missed-calls-slider" className="text-sm font-medium text-foreground">
                   Missed calls per week
                 </label>
-                <span className="text-2xl font-bold gradient-text tabular-nums">
+                <span aria-live="polite" aria-atomic="true" className="text-2xl font-bold gradient-text tabular-nums">
                   {missedPerWeek}
                 </span>
               </div>
               <Slider
+                id="missed-calls-slider"
+                aria-label="Missed calls per week"
+                aria-valuetext={`${missedPerWeek} missed calls per week`}
                 min={1}
                 max={60}
                 step={1}
@@ -102,14 +106,16 @@ export function ReplacementCalculator() {
             </div>
 
             {/* Toggle: receptionist */}
-            <div>
-              <p className="text-sm font-medium text-foreground mb-4">
+            <fieldset>
+              <legend className="text-sm font-medium text-foreground mb-4">
                 Do you currently pay a receptionist?
-              </p>
-              <div className="flex gap-3">
+              </legend>
+              <div role="group" className="flex gap-3">
                 {[true, false].map((val) => (
                   <button
                     key={String(val)}
+                    type="button"
+                    aria-pressed={hasReceptionist === val}
                     onClick={() => setHasReceptionist(val)}
                     className={`flex-1 py-3 rounded-xl text-sm font-medium border transition-all duration-200 ${
                       hasReceptionist === val
@@ -121,7 +127,7 @@ export function ReplacementCalculator() {
                   </button>
                 ))}
               </div>
-            </div>
+            </fieldset>
 
             {/* Assumptions note */}
             <p className="text-xs text-muted-foreground leading-relaxed">
@@ -142,6 +148,7 @@ export function ReplacementCalculator() {
                 className="glass-card rounded-2xl border border-white/10 p-6 flex items-start gap-5"
               >
                 <div
+                  aria-hidden="true"
                   className={`w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0 ${
                     m.accent
                       ? "bg-accent/10 text-accent"
@@ -169,12 +176,15 @@ export function ReplacementCalculator() {
             <Button
               size="lg"
               className="w-full rounded-full glow-blue font-semibold mt-2"
+              asChild
               onClick={() =>
                 track({ name: "cta_click", label: "Start saving now", location: "Calculator" })
               }
             >
-              Start saving {formatGBP(savings)} now
-              <TrendingUp className="ml-2 w-4 h-4" />
+              <Link to="/onboarding">
+                Start saving {formatGBP(savings)} now
+                <TrendingUp aria-hidden="true" className="ml-2 w-4 h-4" />
+              </Link>
             </Button>
           </div>
         </div>

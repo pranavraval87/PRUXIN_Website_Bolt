@@ -91,7 +91,7 @@
   --secondary: oklch(0.20 0.025 255);
   --secondary-foreground: oklch(0.85 0.01 240);
   --muted: oklch(0.20 0.025 255);
-  --muted-foreground: oklch(0.60 0.015 240);
+  --muted-foreground: oklch(0.65 0.015 240);
   --accent: oklch(0.88 0.12 196);
   --accent-foreground: oklch(0.12 0 0);
   --destructive: oklch(0.62 0.22 27);
@@ -127,7 +127,7 @@
   --secondary: oklch(0.20 0.025 255);
   --secondary-foreground: oklch(0.85 0.01 240);
   --muted: oklch(0.20 0.025 255);
-  --muted-foreground: oklch(0.60 0.015 240);
+  --muted-foreground: oklch(0.65 0.015 240);
   --accent: oklch(0.88 0.12 196);
   --accent-foreground: oklch(0.12 0 0);
   --destructive: oklch(0.62 0.22 27);
@@ -262,6 +262,25 @@
   0%   { background-position: 0% 50%; }
   50%  { background-position: 100% 50%; }
   100% { background-position: 0% 50%; }
+}
+
+/* Respect prefers-reduced-motion — stop all decorative animations */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  .animate-pulse {
+    animation: none !important;
+  }
+  .animated-gradient-text {
+    animation: none !important;
+    background-position: 0% 50% !important;
+  }
 }
 
 @keyframes pulse-aura {
