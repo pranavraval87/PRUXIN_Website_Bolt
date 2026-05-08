@@ -2,6 +2,7 @@ import { useRef } from "react"
 import { Routes, Route } from "react-router-dom"
 import { Toaster } from "@/components/ui/sonner"
 import { RootLayout } from "@/components/layout/RootLayout"
+import { ScrollToTop } from "@/components/layout/ScrollToTop"
 import { HeroSection } from "@/components/sections/HeroSection"
 import { AudioSection } from "@/components/sections/AudioSection"
 import { IndustryGrid } from "@/components/sections/IndustryGrid"
@@ -11,10 +12,12 @@ import { RuxiLiveCard } from "@/components/sections/RuxiLiveCard"
 import { Process } from "@/components/sections/Process"
 import { Walkthrough } from "@/components/sections/Walkthrough"
 import { TrustSection } from "@/components/sections/TrustSection"
+import { PodcastSection } from "@/components/sections/PodcastSection"
 import { PricingSection } from "@/components/sections/PricingSection"
 import { FinalCTA } from "@/components/sections/FinalCTA"
 import { IndustryPage } from "@/pages/IndustryPage"
 import { LegalPage } from "@/pages/LegalPage"
+import { WebAgentPage } from "@/pages/WebAgentPage"
 import { NotFoundPage } from "@/pages/NotFoundPage"
 import { ErrorBoundary } from "@/components/errors/ErrorBoundary"
 import { OfflineBanner } from "@/components/errors/OfflineBanner"
@@ -53,6 +56,9 @@ function HomePage() {
       <ErrorBoundary section="TrustSection" inline>
         <TrustSection />
       </ErrorBoundary>
+      <ErrorBoundary section="PodcastSection" inline>
+        <PodcastSection />
+      </ErrorBoundary>
       <ErrorBoundary section="PricingSection" inline>
         <PricingSection />
       </ErrorBoundary>
@@ -68,6 +74,7 @@ export function App() {
     <>
       <OfflineBanner />
       <ErrorBoundary section="App">
+        <ScrollToTop />
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/industries/:slug" element={
@@ -83,6 +90,11 @@ export function App() {
           <Route path="/legal/:section" element={
             <ErrorBoundary section="LegalPage">
               <LegalPage />
+            </ErrorBoundary>
+          } />
+          <Route path="/product/web-agent" element={
+            <ErrorBoundary section="WebAgentPage">
+              <WebAgentPage />
             </ErrorBoundary>
           } />
           <Route path="*" element={
