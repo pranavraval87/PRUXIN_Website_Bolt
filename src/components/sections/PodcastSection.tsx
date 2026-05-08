@@ -1,4 +1,5 @@
 import { Music2 } from "lucide-react"
+import { Link } from "react-router-dom"
 import { Button } from "@/components/ui/button"
 
 export function PodcastSection() {
@@ -46,7 +47,7 @@ export function PodcastSection() {
           </p>
         </div>
 
-        {/* CTA */}
+        {/* CTA — internal route */}
         <div className="flex justify-center">
           <Button
             variant="outline"
@@ -54,14 +55,10 @@ export function PodcastSection() {
             className="rounded-full border-white/15 hover:border-accent/40 hover:text-accent transition-all gap-2"
             asChild
           >
-            <a
-              href="https://open.spotify.com/show/7JyafgYs0C5CXZTGksngVe"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
+            <Link to="/podcasts">
               <Music2 className="w-4 h-4" />
-              Listen on Spotify
-            </a>
+              Browse all episodes
+            </Link>
           </Button>
         </div>
       </div>

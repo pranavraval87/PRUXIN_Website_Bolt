@@ -174,7 +174,7 @@ export function Footer() {
 
           {/* Bottom bar — single legal link + Cookie Preferences */}
           <div className="mt-12 pt-6 border-t border-white/8 flex flex-wrap items-center justify-center sm:justify-between gap-4 text-xs text-muted-foreground">
-            <p>Registered in England &amp; Wales.</p>
+            <p>PRUXIN Ltd — Registered in Scotland.</p>
             <div className="flex flex-wrap gap-5 justify-center">
               <Link to="/legal" className="hover:text-foreground transition-colors">
                 Legal &amp; Compliance

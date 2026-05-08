@@ -11,39 +11,25 @@ import { FinalCTA } from "@/components/sections/FinalCTA"
 import { legalSections } from "@/data/legalContent"
 import { cn } from "@/lib/utils"
 
-// ─── Placeholder content blocks ─────────────────────────────────────────────
+// ─── Shared in-progress notice ───────────────────────────────────────────────
 
-function PlaceholderContent({ title }: { title: string }) {
+function InProgressNotice({ title }: { title: string }) {
   return (
-    <div className="space-y-6">
-      <p className="leading-7 text-muted-foreground">
-        This document sets out the legally binding terms governing your use of the PRUXIN platform,
-        associated services, and any related software provided by PRUXIN Ltd, a company registered
-        in England and Wales.
-      </p>
-      <p className="leading-7 text-muted-foreground">
-        By accessing or using PRUXIN you agree to be bound by the terms described herein. If you
-        do not agree to all terms, you must not use the service. PRUXIN reserves the right to
-        update these terms at any time; continued use of the service following notification of
-        changes constitutes acceptance.
-      </p>
-      <div className="glass-card rounded-xl border border-white/10 p-5 flex items-start gap-3">
-        <AlertTriangle className="w-5 h-5 text-muted-foreground mt-0.5 shrink-0" />
-        <div>
-          <p className="text-sm font-semibold text-foreground mb-1">Full document in preparation</p>
-          <p className="text-sm text-muted-foreground leading-relaxed">
-            The complete {title} is currently being finalised by our legal team. It will be
-            published here before PRUXIN enters general availability. If you require this document
-            in advance — for procurement or compliance purposes — contact{" "}
-            <a
-              href="mailto:pranav@pruxin.com"
-              className="text-accent hover:underline underline-offset-4"
-            >
-              pranav@pruxin.com
-            </a>
-            .
-          </p>
-        </div>
+    <div className="glass-card rounded-xl border border-white/10 p-5 flex items-start gap-3">
+      <AlertTriangle className="w-5 h-5 text-muted-foreground mt-0.5 shrink-0" />
+      <div>
+        <p className="text-sm font-semibold text-foreground mb-1">{title} — finalisation in progress</p>
+        <p className="text-sm text-muted-foreground leading-relaxed">
+          This document is being finalised and will be published here before PRUXIN enters
+          general availability. For procurement or compliance purposes, contact{" "}
+          <a
+            href="mailto:pranav@pruxin.com"
+            className="text-accent hover:underline underline-offset-4"
+          >
+            pranav@pruxin.com
+          </a>
+          .
+        </p>
       </div>
     </div>
   )
@@ -58,7 +44,7 @@ function TermsContent() {
         <p className="leading-7 text-muted-foreground">
           These Terms of Use ("Terms") govern your access to and use of the PRUXIN platform,
           associated services, and any related software provided by PRUXIN Ltd ("PRUXIN", "we",
-          "our"), a company registered in England and Wales. By accessing or using PRUXIN you
+          "our"), a company registered in Scotland. By accessing or using PRUXIN you
           agree to be bound by these Terms.
         </p>
         <p className="leading-7 text-muted-foreground">
@@ -473,13 +459,166 @@ function DPAContent() {
 // ─── Cookie Policy ───────────────────────────────────────────────────────────
 
 function CookieContent() {
-  return <PlaceholderContent title="Cookie Policy" />
+  return (
+    <div className="space-y-8">
+      <p className="leading-7 text-muted-foreground">
+        This Cookie Policy explains how PRUXIN Ltd ("PRUXIN", "we", "our") uses cookies and similar
+        tracking technologies on{" "}
+        <span className="font-medium text-foreground">pruxin.io</span> and the PRUXIN platform, in
+        accordance with the Privacy and Electronic Communications Regulations 2003 (PECR) and UK GDPR.
+      </p>
+      <div className="space-y-4">
+        <h3 className="scroll-m-20 text-xl font-semibold tracking-tight text-foreground">
+          What are cookies?
+        </h3>
+        <p className="leading-7 text-muted-foreground">
+          Cookies are small text files placed on your device when you visit a website. They help us
+          remember your preferences, understand how you use our site, and improve your experience.
+          We use strictly necessary, functional, and analytics cookies only.
+        </p>
+      </div>
+      <div className="space-y-4">
+        <h3 className="scroll-m-20 text-xl font-semibold tracking-tight text-foreground">
+          Managing your preferences
+        </h3>
+        <p className="leading-7 text-muted-foreground">
+          You can manage or withdraw your consent at any time using the Cookie Preferences link in
+          the footer of this site. Most browsers also allow you to delete and block cookies via
+          their settings.
+        </p>
+      </div>
+      <InProgressNotice title="Full Cookie Policy" />
+    </div>
+  )
 }
 
 // ─── AI Transparency Disclosure ──────────────────────────────────────────────
 
 function AITransparencyContent() {
-  return <PlaceholderContent title="AI Transparency Disclosure" />
+  return (
+    <div className="space-y-10">
+      <p className="leading-7 text-muted-foreground">
+        PRUXIN is committed to transparent, explainable AI. This disclosure describes how Ruxi's AI
+        systems work, what data they process, and the rights you have as a data subject or as a
+        business deploying Ruxi on behalf of your customers.
+      </p>
+
+      {/* LIA callout */}
+      <div className="rounded-2xl border border-accent/30 bg-accent/5 p-6 space-y-4">
+        <div className="flex items-center gap-2.5">
+          <span className="w-2 h-2 rounded-full bg-accent animate-pulse" />
+          <Badge
+            variant="outline"
+            className="border-accent/40 text-accent bg-accent/10 text-xs font-semibold tracking-wider uppercase"
+          >
+            Legitimate Interests Assessment
+          </Badge>
+        </div>
+        <h3 className="scroll-m-20 text-lg font-semibold tracking-tight text-foreground">
+          Legitimate Interests Assessment (LIA)
+        </h3>
+        <p className="text-sm text-muted-foreground leading-[1.8]">
+          Where PRUXIN relies on Legitimate Interests as the lawful basis for processing personal
+          data (UK GDPR Article 6(1)(f)), a Legitimate Interests Assessment has been carried out.
+          The LIA balances PRUXIN's business interests against the rights and interests of data
+          subjects, including callers, and concludes that AI-powered call handling constitutes a
+          legitimate interest that does not unduly override individual rights.
+        </p>
+        <p className="text-sm text-muted-foreground leading-[1.8]">
+          The LIA is available on request for subscribing businesses and enterprise compliance
+          teams.{" "}
+          <a
+            href="mailto:pranav@pruxin.com?subject=LIA Request"
+            className="text-accent hover:underline underline-offset-4 inline-flex items-center gap-1"
+          >
+            Request a copy
+            <ExternalLink className="w-3 h-3" />
+          </a>
+          .
+        </p>
+      </div>
+
+      <div className="space-y-4">
+        <h3 className="scroll-m-20 text-xl font-semibold tracking-tight text-foreground">
+          How Ruxi's AI works
+        </h3>
+        <p className="leading-7 text-muted-foreground">
+          Ruxi uses a combination of automatic speech recognition (ASR) and large language model
+          (LLM) inference to answer calls on behalf of subscribing businesses. The system:
+        </p>
+        <ul className="my-4 ml-6 list-disc space-y-2 text-muted-foreground text-sm leading-7">
+          <li>Converts caller speech to text in real time (ASR layer — Deepgram)</li>
+          <li>Classifies caller intent using an LLM trained on the business's knowledge base</li>
+          <li>Generates a spoken response via text-to-speech (TTS)</li>
+          <li>Records a structured outcome (e.g., "booking confirmed", "message taken") in the dashboard</li>
+        </ul>
+      </div>
+
+      <div className="space-y-4">
+        <h3 className="scroll-m-20 text-xl font-semibold tracking-tight text-foreground">
+          No automated decisions affecting legal rights
+        </h3>
+        <p className="leading-7 text-muted-foreground">
+          Ruxi does not make automated decisions that produce legal effects or similarly significant
+          effects on individual callers. Outcome classifications (e.g., "enquiry", "complaint") are
+          informational summaries for the subscribing business — they are not used for profiling,
+          credit scoring, or any decision with legal consequence.
+        </p>
+      </div>
+
+      <div className="space-y-4">
+        <h3 className="scroll-m-20 text-xl font-semibold tracking-tight text-foreground">
+          Caller disclosure obligation
+        </h3>
+        <p className="leading-7 text-muted-foreground">
+          Subscribing businesses are required under their PRUXIN terms of service to inform callers
+          that their call may be handled by an AI system. PRUXIN provides a recommended disclosure
+          script. The subscribing business, as data controller, bears responsibility for ensuring
+          this disclosure is made.
+        </p>
+      </div>
+
+      <div className="space-y-4">
+        <h3 className="scroll-m-20 text-xl font-semibold tracking-tight text-foreground">
+          AI model versions
+        </h3>
+        <div className="overflow-x-auto rounded-xl border border-white/10">
+          <table className="w-full text-sm">
+            <thead>
+              <tr className="border-b border-white/10 bg-white/3">
+                <th className="text-left px-4 py-3 font-semibold text-foreground">Component</th>
+                <th className="text-left px-4 py-3 font-semibold text-foreground">Provider</th>
+                <th className="text-left px-4 py-3 font-semibold text-foreground">Model</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr className="border-b border-white/8">
+                <td className="px-4 py-3 text-foreground font-medium">Speech Recognition (ASR)</td>
+                <td className="px-4 py-3 text-muted-foreground">Deepgram</td>
+                <td className="px-4 py-3 text-muted-foreground font-mono text-xs">nova-3</td>
+              </tr>
+              <tr className="border-b border-white/8">
+                <td className="px-4 py-3 text-foreground font-medium">Conversational AI</td>
+                <td className="px-4 py-3 text-muted-foreground">OpenAI</td>
+                <td className="px-4 py-3 text-muted-foreground font-mono text-xs">gpt-4.1-mini</td>
+              </tr>
+              <tr>
+                <td className="px-4 py-3 text-foreground font-medium">Voice Orchestration</td>
+                <td className="px-4 py-3 text-muted-foreground">Vapi</td>
+                <td className="px-4 py-3 text-muted-foreground font-mono text-xs">—</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p className="text-xs text-muted-foreground">
+          Model versions are updated as better, more capable options become available. This table
+          reflects the current production deployment as of May 2026.
+        </p>
+      </div>
+
+      <InProgressNotice title="Full AI Transparency Disclosure" />
+    </div>
+  )
 }
 
 // ─── Content router ──────────────────────────────────────────────────────────
@@ -571,7 +710,7 @@ export function LegalPage() {
                 <p className="text-sm text-muted-foreground">
                   PRUXIN Ltd is registered with the Information Commissioner's Office.{" "}
                   <span className="font-mono text-foreground/70">ICO Ref: ZB######</span>
-                  {" "}— Registered in England &amp; Wales.
+                  {" "}— Registered in Scotland.
                 </p>
               </div>
               <div className="flex items-center gap-1.5 text-xs text-muted-foreground shrink-0">

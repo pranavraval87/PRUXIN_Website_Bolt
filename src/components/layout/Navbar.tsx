@@ -1,28 +1,60 @@
-import { Button } from "@/components/ui/button"
-import { cn } from "@/lib/utils"
-import { Menu, X } from "lucide-react"
 import { useState } from "react"
-import { useTheme } from "@/components/theme-provider"
 import { Link, useLocation } from "react-router-dom"
+import { Menu, X, ChevronDown, Phone, Radio, Globe, ArrowRight } from "lucide-react"
+import { Button } from "@/components/ui/button"
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+  DropdownMenuSeparator,
+} from "@/components/ui/dropdown-menu"
+import { useTheme } from "@/components/theme-provider"
+import { cn } from "@/lib/utils"
 
-const navLinks = [
-  { label: "Features", to: "/features" },
-  { label: "Pricing",  to: "/#calculator" },
+const products = [
+  {
+    icon: Phone,
+    label: "Ruxi Inbound",
+    description: "Answer every call, 24/7",
+    to: "/#product-inbound",
+    active: true,
+  },
+  {
+    icon: Radio,
+    label: "Ruxi Outbound",
+    description: "Compliant AI outreach at scale",
+    to: "/#product-outbound",
+    active: true,
+  },
+  {
+    icon: Globe,
+    label: "AI Web Agent",
+    description: "Intelligence layer for your website",
+    to: "/product/web-agent",
+    active: true,
+    badge: "Coming Soon",
+  },
+]
+
+const topLinks = [
+  { label: "Pricing", to: "/#calculator" },
   { label: "Podcasts", to: "/podcasts" },
-  { label: "Legal",    to: "/legal" },
 ]
 
 export function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false)
+  const [mobileProductsOpen, setMobileProductsOpen] = useState(false)
   const { theme } = useTheme()
   const isLight = theme === "light"
   const { pathname } = useLocation()
 
   return (
-    <header className={cn("fixed top-0 left-0 right-0 z-50 glass-nav")}>
+    <header className="fixed top-0 left-0 right-0 z-50 glass-nav">
       <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
+
         {/* Logo */}
-        <Link to="/" className="flex items-center group">
+        <Link to="/" className="flex items-center group shrink-0">
           <img
             src={isLight ? "/Pruxin_logo_DARK copy.svg" : "/Pruxin_logo_LIGHT copy.svg"}
             alt="PRUXIN"
@@ -32,7 +64,62 @@ export function Navbar() {
 
         {/* Desktop nav */}
         <nav className="hidden md:flex items-center gap-1">
-          {navLinks.map((link) => {
+          {/* Products dropdown */}
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <button className={cn(
+                "inline-flex items-center gap-1 px-4 py-2 text-sm transition-colors duration-200 rounded-md outline-none select-none",
+                "text-muted-foreground hover:text-foreground hover:bg-white/5",
+                "data-[state=open]:text-foreground data-[state=open]:bg-white/8"
+              )}>
+                Products
+                <ChevronDown className="w-3.5 h-3.5 transition-transform duration-200 [[data-state=open]_&]:rotate-180" />
+              </button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent
+              align="start"
+              sideOffset={8}
+              className="w-72 bg-background/90 backdrop-blur-xl border border-white/10 rounded-2xl p-2 shadow-2xl"
+            >
+              {products.map((product) => (
+                <DropdownMenuItem key={product.label} asChild className="rounded-xl p-0 focus:bg-transparent">
+                  <Link
+                    to={product.to}
+                    className="flex items-start gap-3 px-3 py-3 rounded-xl hover:bg-white/5 transition-colors duration-150 cursor-pointer group/item"
+                  >
+                    <div className="w-8 h-8 rounded-lg bg-accent/10 border border-accent/15 flex items-center justify-center shrink-0 mt-0.5 group-hover/item:bg-accent/20 transition-colors">
+                      <product.icon className="w-4 h-4 text-accent" />
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <div className="flex items-center gap-2">
+                        <span className="text-sm font-medium text-foreground">{product.label}</span>
+                        {product.badge && (
+                          <span className="text-[10px] px-1.5 py-0.5 rounded-full border border-accent/25 text-accent/80 leading-none">
+                            {product.badge}
+                          </span>
+                        )}
+                      </div>
+                      <p className="text-xs text-muted-foreground mt-0.5 leading-relaxed">{product.description}</p>
+                    </div>
+                    <ArrowRight className="w-3.5 h-3.5 text-muted-foreground/40 shrink-0 mt-1 transition-transform duration-150 group-hover/item:translate-x-0.5 group-hover/item:text-accent/60" />
+                  </Link>
+                </DropdownMenuItem>
+              ))}
+              <DropdownMenuSeparator className="bg-white/8 my-1" />
+              <DropdownMenuItem asChild className="rounded-xl p-0 focus:bg-transparent">
+                <Link
+                  to="/features"
+                  className="flex items-center gap-2 px-3 py-2.5 rounded-xl hover:bg-white/5 transition-colors text-xs text-muted-foreground hover:text-foreground"
+                >
+                  View all features
+                  <ArrowRight className="w-3 h-3 ml-auto" />
+                </Link>
+              </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
+
+          {/* Flat links */}
+          {topLinks.map((link) => {
             const routePath = link.to.split("#")[0] || "/"
             const isActive = pathname === routePath && routePath !== "/"
             return (
@@ -40,7 +127,7 @@ export function Navbar() {
                 key={link.label}
                 to={link.to}
                 className={cn(
-                  "relative px-4 py-2 text-sm transition-colors duration-200 rounded-md",
+                  "px-4 py-2 text-sm transition-colors duration-200 rounded-md",
                   isActive
                     ? "text-foreground bg-white/8"
                     : "text-muted-foreground hover:text-foreground hover:bg-white/5"
@@ -54,7 +141,7 @@ export function Navbar() {
 
         {/* Desktop CTA */}
         <div className="hidden md:flex items-center gap-3">
-          <span className="text-sm text-muted-foreground cursor-not-allowed opacity-60">
+          <span className="text-sm text-muted-foreground/50 cursor-not-allowed select-none">
             Check my calls
           </span>
           <Button
@@ -80,7 +167,40 @@ export function Navbar() {
       {mobileOpen && (
         <div className="md:hidden glass-nav border-t border-white/8">
           <div className="max-w-7xl mx-auto px-6 py-4 flex flex-col gap-1">
-            {navLinks.map((link) => (
+            {/* Products accordion */}
+            <button
+              onClick={() => setMobileProductsOpen((v) => !v)}
+              className="flex items-center justify-between px-4 py-3 text-sm text-muted-foreground hover:text-foreground transition-colors rounded-md hover:bg-white/5 w-full text-left"
+            >
+              Products
+              <ChevronDown className={cn("w-4 h-4 transition-transform duration-200", mobileProductsOpen && "rotate-180")} />
+            </button>
+            {mobileProductsOpen && (
+              <div className="ml-4 flex flex-col gap-0.5 mb-1">
+                {products.map((p) => (
+                  <Link
+                    key={p.label}
+                    to={p.to}
+                    className="flex items-center gap-3 px-4 py-2.5 text-sm text-muted-foreground hover:text-foreground transition-colors rounded-md hover:bg-white/5"
+                    onClick={() => setMobileOpen(false)}
+                  >
+                    <p.icon className="w-4 h-4 text-accent/70" />
+                    {p.label}
+                    {p.badge && (
+                      <span className="ml-auto text-[10px] text-accent/70 border border-accent/25 rounded-full px-1.5 py-0.5 leading-none">{p.badge}</span>
+                    )}
+                  </Link>
+                ))}
+                <Link
+                  to="/features"
+                  className="px-4 py-2.5 text-xs text-muted-foreground hover:text-foreground transition-colors rounded-md hover:bg-white/5"
+                  onClick={() => setMobileOpen(false)}
+                >
+                  All features →
+                </Link>
+              </div>
+            )}
+            {topLinks.map((link) => (
               <Link
                 key={link.label}
                 to={link.to}
@@ -90,7 +210,7 @@ export function Navbar() {
                 {link.label}
               </Link>
             ))}
-            <div className="pt-3 mt-2 border-t border-white/8 flex flex-col gap-2">
+            <div className="pt-3 mt-2 border-t border-white/8">
               <Button className="bg-primary text-primary-foreground w-full font-medium rounded-full" asChild>
                 <Link to="/" onClick={() => setMobileOpen(false)}>Build my Ruxi now</Link>
               </Button>

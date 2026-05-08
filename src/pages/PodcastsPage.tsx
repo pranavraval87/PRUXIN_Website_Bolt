@@ -6,6 +6,8 @@ import { RootLayout } from "@/components/layout/RootLayout"
 import { FinalCTA } from "@/components/sections/FinalCTA"
 import { ErrorBoundary } from "@/components/errors/ErrorBoundary"
 
+const PLAYER_SECTION_ID = "podcast-player"
+
 const SPOTIFY_SHOW_ID = "7JyafgYs0C5CXZTGksngVe"
 const SPOTIFY_SHOW_URL = `https://open.spotify.com/show/${SPOTIFY_SHOW_ID}`
 
@@ -112,7 +114,7 @@ export function PodcastsPage() {
       </section>
 
       {/* Featured player */}
-      <section className="pb-16">
+      <section id={PLAYER_SECTION_ID} className="pb-16">
         <div className="max-w-7xl mx-auto px-6">
           <div className="glass-card rounded-2xl border border-white/10 p-6 sm:p-8 max-w-3xl mx-auto">
             <p className="text-xs text-muted-foreground uppercase tracking-widest mb-4 font-semibold">
@@ -172,16 +174,17 @@ export function PodcastsPage() {
                   </p>
                 </div>
 
-                {/* CTA */}
+                {/* CTA — scroll to internal player */}
                 <Button
                   size="sm"
                   variant="outline"
                   className="rounded-full border-white/15 hover:border-accent/40 hover:text-accent gap-2 self-start text-xs"
-                  onClick={() =>
-                    ep.spotifyEpisodeId
-                      ? setActiveEpisode(ep.spotifyEpisodeId as unknown as number)
-                      : window.open(SPOTIFY_SHOW_URL, "_blank")
-                  }
+                  onClick={() => {
+                    if (ep.spotifyEpisodeId) {
+                      setActiveEpisode(ep.spotifyEpisodeId as unknown as number)
+                    }
+                    document.getElementById(PLAYER_SECTION_ID)?.scrollIntoView({ behavior: "smooth" })
+                  }}
                 >
                   <Play className="w-3 h-3" />
                   Listen Now
