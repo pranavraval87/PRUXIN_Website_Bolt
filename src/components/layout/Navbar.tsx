@@ -48,7 +48,7 @@ const services = [
 ]
 
 const topLinks = [
-  { label: "Pricing", to: "/#calculator" },
+  { label: "Pricing", to: "/pricing" },
   { label: "Podcasts", to: "/podcasts" },
 ]
 
@@ -76,12 +76,12 @@ export function Navbar() {
         {/* Desktop nav */}
         <nav aria-label="Main navigation" className="hidden md:flex items-center gap-1">
 
-          {/* Ruxi — single product link */}
+          {/* Ruxi — product page link */}
           <Link
-            to="/"
+            to="/ruxi"
             className={cn(
               "inline-flex items-center gap-1.5 px-4 py-2 text-sm transition-colors duration-200 rounded-md",
-              pathname === "/"
+              pathname === "/ruxi"
                 ? "text-foreground bg-white/8"
                 : "text-muted-foreground hover:text-foreground hover:bg-white/5"
             )}
@@ -156,8 +156,8 @@ export function Navbar() {
 
           {/* Flat links */}
           {topLinks.map((link) => {
-            const routePath = link.to.split("#")[0] || "/"
-            const isActive = pathname === routePath && routePath !== "/"
+            const routePath = link.to
+            const isActive = pathname === routePath
             return (
               <Link
                 key={link.label}
@@ -225,7 +225,7 @@ export function Navbar() {
 
             {/* Ruxi link */}
             <Link
-              to="/"
+              to="/ruxi"
               className="flex items-center gap-2 px-4 py-3 text-sm text-muted-foreground hover:text-foreground transition-colors rounded-md hover:bg-white/5"
               onClick={() => setMobileOpen(false)}
             >

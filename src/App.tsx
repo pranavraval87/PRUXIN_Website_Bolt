@@ -18,6 +18,8 @@ import { InboundServicePage } from "@/pages/InboundServicePage"
 import { OutboundServicePage } from "@/pages/OutboundServicePage"
 import { DesignServicePage } from "@/pages/DesignServicePage"
 import { CompliancePage } from "@/pages/CompliancePage"
+import { PricingPage } from "@/pages/PricingPage"
+import { RuxiPage } from "@/pages/RuxiPage"
 import { NotFoundPage } from "@/pages/NotFoundPage"
 import { ErrorBoundary } from "@/components/errors/ErrorBoundary"
 import { OfflineBanner } from "@/components/errors/OfflineBanner"
@@ -114,6 +116,16 @@ export function App() {
           <Route path="/compliance" element={
             <ErrorBoundary section="CompliancePage">
               <CompliancePage />
+            </ErrorBoundary>
+          } />
+          <Route path="/pricing" element={
+            <ErrorBoundary section="PricingPage">
+              <PricingPage />
+            </ErrorBoundary>
+          } />
+          <Route path="/ruxi" element={
+            <ErrorBoundary section="RuxiPage">
+              <RuxiPage />
             </ErrorBoundary>
           } />
           <Route path="*" element={

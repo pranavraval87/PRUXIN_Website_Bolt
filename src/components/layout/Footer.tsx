@@ -74,11 +74,18 @@ function ActiveLink({
 
 const columns = [
   {
-    heading: "Services",
+    heading: "Product",
     items: [
+      { label: "Ruxi",           active: true,  to: "/ruxi" },
       { label: "Ruxi Inbound",   active: true,  to: "/services/inbound" },
       { label: "Ruxi Outbound",  active: true,  to: "/services/outbound" },
       { label: "AI Web Agent",   active: true,  to: "/product/web-agent" },
+      { label: "Pricing",        active: true,  to: "/pricing" },
+    ],
+  },
+  {
+    heading: "Services",
+    items: [
       { label: "UX / UI Design", active: true,  to: "/services/design" },
       { label: "All services",   active: true,  to: "/services" },
     ],
@@ -100,13 +107,6 @@ const columns = [
       { label: "Podcasts",        active: true,  to: "/podcasts" },
       { label: "Compliance Guide",active: true,  to: "/compliance" },
       { label: "Documentation",   active: false },
-    ],
-  },
-  {
-    heading: "Partner",
-    items: [
-      { label: "Agencies",   active: false },
-      { label: "Affiliates", active: false },
     ],
   },
 ]
