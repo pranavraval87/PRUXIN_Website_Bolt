@@ -127,7 +127,7 @@ export function PodcastsPage() {
   const activeEpisode = episodes.find(e => e.spotifyId === activeEpisodeId) ?? null
 
   const embedSrc = activeEpisode
-    ? `https://open.spotify.com/embed/episode/${activeEpisode.spotifyId}?utm_source=generator&theme=0`
+    ? `https://open.spotify.com/embed/episode/${activeEpisode.spotifyId}?utm_source=generator&theme=0&autoplay=1`
     : `https://open.spotify.com/embed/show/${SPOTIFY_SHOW_ID}?utm_source=generator&theme=0&t=0`
 
   function handlePlay(ep: Episode) {
@@ -182,6 +182,7 @@ export function PodcastsPage() {
               </p>
             )}
             <iframe
+              key={activeEpisodeId ?? "show"}
               data-testid="embed-iframe"
               style={{ borderRadius: "12px" }}
               src={embedSrc}
