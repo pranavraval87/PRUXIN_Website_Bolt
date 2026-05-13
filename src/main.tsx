@@ -6,13 +6,16 @@ import { HelmetProvider } from "react-helmet-async"
 import "./index.css"
 import App from "./App.tsx"
 import { ThemeProvider } from "@/components/theme-provider.tsx"
+import { CallProvider } from "@/lib/CallContext"
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <HelmetProvider>
       <BrowserRouter>
         <ThemeProvider defaultTheme="dark">
-          <App />
+          <CallProvider>
+            <App />
+          </CallProvider>
         </ThemeProvider>
       </BrowserRouter>
     </HelmetProvider>

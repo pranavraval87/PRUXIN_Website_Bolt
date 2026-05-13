@@ -6,7 +6,7 @@ import { ArrowRight, Users, Star, TrendingUp } from "lucide-react"
 import { track } from "@/lib/analytics"
 import { MagneticButton } from "@/components/motion/MagneticButton"
 import { RuxiLiveCard } from "@/components/sections/RuxiLiveCard"
-import type { CallState } from "@/lib/vapiClient"
+import type { CallState } from "@/lib/CallContext"
 
 const containerVariants: Variants = {
   hidden: {},

@@ -23,6 +23,7 @@ import { RuxiPage } from "@/pages/RuxiPage"
 import { NotFoundPage } from "@/pages/NotFoundPage"
 import { ErrorBoundary } from "@/components/errors/ErrorBoundary"
 import { OfflineBanner } from "@/components/errors/OfflineBanner"
+import { FloatingCallHUD } from "@/components/call/FloatingCallHUD"
 import { useScrollDepth } from "@/hooks/useScrollDepth"
 
 // ── Simplified "Rome" homepage ────────────────────────────────────────────────
@@ -135,6 +136,7 @@ export function App() {
           } />
         </Routes>
       </ErrorBoundary>
+      <FloatingCallHUD />
       <Toaster position="bottom-right" richColors />
     </>
   )

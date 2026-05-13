@@ -1,4 +1,4 @@
-import { useRef, useState, useEffect, useCallback } from "react"
+import { useEffect, useRef } from "react"
 import { motion, useInView, AnimatePresence } from "framer-motion"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
@@ -14,20 +14,7 @@ import {
 import { cn } from "@/lib/utils"
 import { track } from "@/lib/analytics"
 import { MagneticButton } from "@/components/motion/MagneticButton"
-import {
-  startCall,
-  stopCall,
-  setMuted,
-  onCallEnd,
-  onError,
-  onVolumeLevel,
-  onSpeechStart,
-  onSpeechEnd,
-  ASSISTANT_ID,
-  type CallState,
-} from "@/lib/vapiClient"
-
-const NUM_BARS = 40
+import { useCall, type CallState } from "@/lib/CallContext"
 
 interface Props {
   industrySlug?: string
@@ -41,108 +28,22 @@ export function RuxiLiveCard({ industrySlug, compact = false, onCallStateChange 
   const sectionRef = useRef<HTMLDivElement>(null)
   const inView = useInView(sectionRef, { once: true, margin: "-80px" })
 
-  const [callState, setCallState] = useState<CallState>("idle")
-  const [isMuted, setIsMuted] = useState(false)
-  const [elapsed, setElapsed] = useState(0)
-  const [volumeBars, setVolumeBars] = useState<number[]>(Array(NUM_BARS).fill(0.1))
-  const [isSpeaking, setIsSpeaking] = useState(false)
-  const [isUserSpeaking, setIsUserSpeaking] = useState(false)
-  const timerRef = useRef<ReturnType<typeof setInterval> | null>(null)
-  const startTimeRef = useRef<number>(0)
-
-  const updateCallState = useCallback((state: CallState) => {
-    setCallState(state)
-    onCallStateChange?.(state)
-  }, [onCallStateChange])
-
-  // Ambient idle shimmer
-  useEffect(() => {
-    if (callState !== "idle") return
-    const interval = setInterval(() => {
-      setVolumeBars(
-        Array.from({ length: NUM_BARS }, (_, i) => {
-          const wave = Math.sin((Date.now() / 600) + i * 0.4) * 0.12
-          return 0.08 + wave + Math.random() * 0.04
-        })
-      )
-    }, 80)
-    return () => clearInterval(interval)
-  }, [callState])
-
-  const handleVolume = useCallback((volume: number) => {
-    setIsSpeaking(volume > 0.05)
-    setVolumeBars(
-      Array.from({ length: NUM_BARS }, (_, i) => {
-        const envelope = Math.sin((i / NUM_BARS) * Math.PI)
-        return Math.min(1, volume * 3 * envelope + 0.06 + Math.random() * 0.05)
-      })
-    )
-  }, [])
-
-  const handleStart = useCallback(async () => {
-    updateCallState("connecting")
-    track({ name: "vapi_call_start", industry_slug: industrySlug })
-    try {
-      await startCall(ASSISTANT_ID)
-      updateCallState("active")
-      startTimeRef.current = Date.now()
-      timerRef.current = setInterval(() => {
-        setElapsed(Math.floor((Date.now() - startTimeRef.current) / 1000))
-      }, 1000)
-    } catch {
-      updateCallState("idle")
-    }
-  }, [industrySlug, updateCallState])
-
-  const handleStop = useCallback(() => {
-    stopCall()
-    if (timerRef.current) clearInterval(timerRef.current)
-    const duration = Math.floor((Date.now() - startTimeRef.current) / 1000)
-    track({ name: "vapi_call_end", duration_seconds: duration })
-    updateCallState("ended")
-    setElapsed(0)
-    setVolumeBars(Array(NUM_BARS).fill(0.1))
-    setIsUserSpeaking(false)
-    setIsSpeaking(false)
-  }, [updateCallState])
-
-  const toggleMute = useCallback(() => {
-    const next = !isMuted
-    setIsMuted(next)
-    setMuted(next)
-  }, [isMuted])
+  const {
+    callState,
+    isMuted,
+    elapsed,
+    volumeBars,
+    isSpeaking,
+    isUserSpeaking,
+    startCall,
+    stopCall,
+    toggleMute,
+    resetEnded,
+  } = useCall()
 
   useEffect(() => {
-    const unsubEnd = onCallEnd(() => {
-      if (timerRef.current) clearInterval(timerRef.current)
-      const duration = Math.floor((Date.now() - startTimeRef.current) / 1000)
-      track({ name: "vapi_call_end", duration_seconds: duration })
-      updateCallState("ended")
-      setElapsed(0)
-      setVolumeBars(Array(NUM_BARS).fill(0.1))
-      setIsUserSpeaking(false)
-      setIsSpeaking(false)
-    })
-    const unsubError = onError(() => {
-      if (timerRef.current) clearInterval(timerRef.current)
-      updateCallState("idle")
-      setElapsed(0)
-      setVolumeBars(Array(NUM_BARS).fill(0.1))
-      setIsUserSpeaking(false)
-      setIsSpeaking(false)
-    })
-    const unsubVolume = onVolumeLevel(handleVolume)
-    const unsubSpeechStart = onSpeechStart(() => setIsUserSpeaking(true))
-    const unsubSpeechEnd = onSpeechEnd(() => setIsUserSpeaking(false))
-    return () => {
-      unsubEnd()
-      unsubError()
-      unsubVolume()
-      unsubSpeechStart()
-      unsubSpeechEnd()
-      if (timerRef.current) clearInterval(timerRef.current)
-    }
-  }, [handleVolume, updateCallState])
+    onCallStateChange?.(callState)
+  }, [callState, onCallStateChange])
 
   const formatTime = (s: number) => {
     const m = Math.floor(s / 60)
@@ -219,7 +120,7 @@ export function RuxiLiveCard({ industrySlug, compact = false, onCallStateChange 
                     className="bg-primary text-primary-foreground hover:bg-primary/90 glow-blue font-semibold gap-2.5 px-8 rounded-full"
                     onClick={() => {
                       track({ name: "cta_click", label: "Talk to Ruxi", location: "RuxiLiveCard" })
-                      handleStart()
+                      void startCall({ industrySlug })
                     }}
                   >
                     <Mic className="w-5 h-5" />
@@ -339,7 +240,7 @@ export function RuxiLiveCard({ industrySlug, compact = false, onCallStateChange 
                     {isMuted ? "Unmute" : "Mute"}
                   </Button>
                   <Button
-                    onClick={handleStop}
+                    onClick={stopCall}
                     className="flex-1 bg-destructive/90 hover:bg-destructive text-white gap-2"
                   >
                     <PhoneOff className="w-4 h-4" />
@@ -382,11 +283,7 @@ export function RuxiLiveCard({ industrySlug, compact = false, onCallStateChange 
                   <Button
                     variant="outline"
                     className="flex-1 border-white/15 hover:border-white/30 gap-2"
-                    onClick={() => {
-                      setCallState("idle")
-                      setElapsed(0)
-                      onCallStateChange?.("idle")
-                    }}
+                    onClick={resetEnded}
                   >
                     <Phone className="w-4 h-4" />
                     Try again
