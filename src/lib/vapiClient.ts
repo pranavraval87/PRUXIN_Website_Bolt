@@ -1,7 +1,7 @@
 import { vapi, ASSISTANT_ID } from "@/lib/vapi"
 
 export { ASSISTANT_ID }
-export type CallState = "idle" | "requesting" | "active" | "ended"
+export type CallState = "idle" | "connecting" | "active" | "ended"
 
 export function startCall(assistantId: string = ASSISTANT_ID): Promise<void> {
   return new Promise((resolve, reject) => {
@@ -37,4 +37,9 @@ export function onSpeechEnd(cb: () => void): () => void {
 export function onVolumeLevel(cb: (volume: number) => void): () => void {
   vapi.on("volume-level", cb)
   return () => vapi.removeListener("volume-level", cb)
+}
+
+export function onError(cb: (err: unknown) => void): () => void {
+  vapi.on("error", cb)
+  return () => vapi.removeListener("error", cb)
 }

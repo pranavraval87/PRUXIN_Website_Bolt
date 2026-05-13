@@ -19,6 +19,7 @@ import {
   stopCall,
   setMuted,
   onCallEnd,
+  onError,
   onVolumeLevel,
   onSpeechStart,
   onSpeechEnd,
@@ -79,7 +80,7 @@ export function RuxiLiveCard({ industrySlug, compact = false, onCallStateChange 
   }, [])
 
   const handleStart = useCallback(async () => {
-    updateCallState("requesting")
+    updateCallState("connecting")
     track({ name: "vapi_call_start", industry_slug: industrySlug })
     try {
       await startCall(ASSISTANT_ID)
@@ -122,11 +123,20 @@ export function RuxiLiveCard({ industrySlug, compact = false, onCallStateChange 
       setIsUserSpeaking(false)
       setIsSpeaking(false)
     })
+    const unsubError = onError(() => {
+      if (timerRef.current) clearInterval(timerRef.current)
+      updateCallState("idle")
+      setElapsed(0)
+      setVolumeBars(Array(NUM_BARS).fill(0.1))
+      setIsUserSpeaking(false)
+      setIsSpeaking(false)
+    })
     const unsubVolume = onVolumeLevel(handleVolume)
     const unsubSpeechStart = onSpeechStart(() => setIsUserSpeaking(true))
     const unsubSpeechEnd = onSpeechEnd(() => setIsUserSpeaking(false))
     return () => {
       unsubEnd()
+      unsubError()
       unsubVolume()
       unsubSpeechStart()
       unsubSpeechEnd()
@@ -223,9 +233,9 @@ export function RuxiLiveCard({ industrySlug, compact = false, onCallStateChange 
               </motion.div>
             )}
 
-            {callState === "requesting" && (
+            {callState === "connecting" && (
               <motion.div
-                key="requesting"
+                key="connecting"
                 initial={{ opacity: 0, y: 8 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -8 }}
