@@ -13,6 +13,11 @@ import { WebAgentPage } from "@/pages/WebAgentPage"
 import { PodcastsPage } from "@/pages/PodcastsPage"
 import { FeaturesPage } from "@/pages/FeaturesPage"
 import { OnboardingPage } from "@/pages/OnboardingPage"
+import { ServicesPage } from "@/pages/ServicesPage"
+import { InboundServicePage } from "@/pages/InboundServicePage"
+import { OutboundServicePage } from "@/pages/OutboundServicePage"
+import { DesignServicePage } from "@/pages/DesignServicePage"
+import { CompliancePage } from "@/pages/CompliancePage"
 import { NotFoundPage } from "@/pages/NotFoundPage"
 import { ErrorBoundary } from "@/components/errors/ErrorBoundary"
 import { OfflineBanner } from "@/components/errors/OfflineBanner"
@@ -84,6 +89,31 @@ export function App() {
           <Route path="/onboarding" element={
             <ErrorBoundary section="OnboardingPage">
               <OnboardingPage />
+            </ErrorBoundary>
+          } />
+          <Route path="/services" element={
+            <ErrorBoundary section="ServicesPage">
+              <ServicesPage />
+            </ErrorBoundary>
+          } />
+          <Route path="/services/inbound" element={
+            <ErrorBoundary section="InboundServicePage">
+              <InboundServicePage />
+            </ErrorBoundary>
+          } />
+          <Route path="/services/outbound" element={
+            <ErrorBoundary section="OutboundServicePage">
+              <OutboundServicePage />
+            </ErrorBoundary>
+          } />
+          <Route path="/services/design" element={
+            <ErrorBoundary section="DesignServicePage">
+              <DesignServicePage />
+            </ErrorBoundary>
+          } />
+          <Route path="/compliance" element={
+            <ErrorBoundary section="CompliancePage">
+              <CompliancePage />
             </ErrorBoundary>
           } />
           <Route path="*" element={

@@ -74,28 +74,32 @@ function ActiveLink({
 
 const columns = [
   {
-    heading: "Product",
+    heading: "Services",
     items: [
-      { label: "Ruxi Inbound",  active: true,  href: "#product" },
-      { label: "Ruxi Outbound", active: true,  href: "#pricing" },
-      { label: "AI Web Agent",  active: true,  to: "/product/web-agent" },
+      { label: "Ruxi Inbound",   active: true,  to: "/services/inbound" },
+      { label: "Ruxi Outbound",  active: true,  to: "/services/outbound" },
+      { label: "AI Web Agent",   active: true,  to: "/product/web-agent" },
+      { label: "UX / UI Design", active: true,  to: "/services/design" },
+      { label: "All services",   active: true,  to: "/services" },
     ],
   },
   {
     heading: "Company",
     items: [
-      { label: "About us",  active: true,  href: "#about" },
-      { label: "Legal",     active: true,  to: "/legal" },
-      { label: "Contact",   active: true,  href: "mailto:pranav@pruxin.com" },
-      { label: "Careers",   active: false },
+      { label: "About us",   active: true,  href: "#about" },
+      { label: "Legal",      active: true,  to: "/legal" },
+      { label: "Compliance", active: true,  to: "/compliance" },
+      { label: "Contact",    active: true,  href: "mailto:pranav@pruxin.com" },
+      { label: "Careers",    active: false },
     ],
   },
   {
     heading: "Resources",
     items: [
-      { label: "Blog",           active: false },
-      { label: "Podcasts",       active: true,  to: "/podcasts" },
-      { label: "Documentation",  active: false },
+      { label: "Blog",            active: false },
+      { label: "Podcasts",        active: true,  to: "/podcasts" },
+      { label: "Compliance Guide",active: true,  to: "/compliance" },
+      { label: "Documentation",   active: false },
     ],
   },
   {
